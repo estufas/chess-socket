@@ -1567,6 +1567,7 @@ var Chess = function(fen) {
     history: function(options) {
       var reversed_history = [];
       var move_history = [];
+      console.log(move_history);
       var verbose = (typeof options !== 'undefined' && 'verbose' in options &&
                      options.verbose);
 
@@ -1595,3 +1596,7 @@ var Chess = function(fen) {
 if (typeof exports !== 'undefined') exports.Chess = Chess;
 /* export Chess object for any RequireJS compatible environment */
 if (typeof define !== 'undefined') define( function () { return Chess;  });
+
+
+
+

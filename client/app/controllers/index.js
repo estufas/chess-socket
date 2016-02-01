@@ -1,6 +1,5 @@
-angular.module('ChessCtrls', ['ChessServices'])
+angular.module('Authctrl', ['ChessServices'])
 .controller('HomeCtrl', ['$scope', function($scope) {
-	
 }])
 .controller('NavCtrl', ['$scope', 'Auth', 'Alerts', function($scope, Auth, Alerts) {
   $scope.alerts = Alerts.get();
