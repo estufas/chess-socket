@@ -1,10 +1,13 @@
+// var request         = require('request');
 var express         = require('express');
 var mongoose        = require('mongoose');
-// var request         = require('request');
+var bodyParser      = require('body-parser');
+var expressJWT      = require('express-jwt');
 var _               = require('lodash');
 var path 			      = require('path');
-
-var app = express();
+var app             = express();
+var User            = require('./models/user');
+var secret          = "juicyjforpresident";
 
 
 mongoose.connect('mongodb://localhost/final_project');
