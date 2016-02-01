@@ -14,7 +14,7 @@ angular.module('ChessServices', ['ngResource'])
 			var token = this.getToken();
 			return token ? true : false
 		},
-		curentUser: function() {
+		currentUser: function() {
 			if(this.isLoggedIn()) {
 				var token = this.getToken();
 				try {
