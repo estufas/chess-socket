@@ -12,12 +12,10 @@
 
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse navbar-ex1-collapse">
-    <ul class="nav navbar-nav navbar-right">
-      
-    </ul>
+    <ul class="nav navbar-nav navbar-right"></ul>
   </div><!-- /.navbar-collapse -->
   <uib-alert ng-repeat='alert in alerts' type='{{alert.type}}' close='closeAlert($index)' dismiss-on-timeout='1000'>
   {{alert.message}}
-</uib-alert>
+  </uib-alert>
 </nav>
 

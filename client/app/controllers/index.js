@@ -42,3 +42,11 @@ angular.module('Authctrl', ['ChessServices'])
     })
   }
 }])
+.controller('SocketCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
+  var socket = io();
+  $scope.message;
+  $scope.sendChat = function(event) {
+    socket.emit('chat message', $scope.message);
+    $scope.message = '';
+  }
+}])
