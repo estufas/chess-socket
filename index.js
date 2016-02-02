@@ -6,8 +6,19 @@ var expressJWT      = require('express-jwt');
 var _               = require('lodash');
 var path 			      = require('path');
 var app             = express();
+var http            = require('http').Server(app);
+var io              = require('socket.io')(http);
 var User            = require('./models/user');
 var secret          = "juicyjforpresident";
+
+
+io.on('connection', function(socket){
+  console.log('user joined chat');
+  socket.on('chat message', function(msg){
+    console.log('message');
+    io.emit('chat message', msg);
+  });
+});
 
 
 mongoose.connect('mongodb://localhost/final_project');
@@ -32,7 +43,7 @@ mongoose.connection.once('open', function(){
       res.status(401).send({message: 'You need an authorization token to view this information.'})
     }
   });
-
+  
   app.post('/api/auth', function(req, res) {
     User.findOne({email: req.body.email}, function(err, user) {
       if (err || !user) return res.send({message: 'User not found'});
@@ -51,6 +62,7 @@ mongoose.connection.once('open', function(){
     app.use(route, controller);
   });
 
-  console.log("RUNNING");
-  app.listen(process.env.PORT || 3000);
+  http.listen(3000, function(){
+    console.log('listening on port 3000');
+  });
 });

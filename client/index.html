@@ -10,15 +10,29 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-resource.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="socket.io.js"></script>
 	<script src="app/app.js"></script>
 	<script src="app/services.js"></script>
     <script src="app/controllers/index.js"></script>
-	
 </head>
 <body>
 	<div class="main">
 <!-- 		<div ng-include="app/views/navbar.html'"></div>
  -->		<ng-view></ng-view>
 	</div>
+	<script>
+	  var socket = io();
+	  $('form').submit(function(){
+	  	console.log('message');
+	    socket.emit('chat message', $('#m').val());
+	    $('#m').val('');
+	    return false;
+	  });
+	  socket.on('chat message', function(msg){
+	  	console.log('messages')
+	    $('#messages').append($('<li>').text(msg));
+	  });
+	</script>
 </body>
 </html>

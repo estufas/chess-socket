@@ -1,0 +1,19 @@
+    <ul id="messages"></ul>
+    <form ng-submit="sendChat()">
+      <input id="m" autocomplete="off" ng-model="message" /><button>Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+      //console.log($('form'))
+      // $('form').submit(function(event){
+      // 	event.preventDefault();
+      // 	console.log('check');
+      //   socket.emit('chat message', $('#m').val());
+      //   $('#m').val('');
+      //   return false;
+      // });
+      socket.on('chat message', function(msg){
+        $('#messages').append($('<li>').text(msg));
+      });
+  </script>
