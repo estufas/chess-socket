@@ -163,13 +163,16 @@ var Chess = function(fen) {
   var move_number = 1;
   var history = [];
   var header = {};
+  // var fen = 'rnb1kbnr/ppp4p/6P1/3pP1q1/8/5P2/PPP3PP/RNBQKBNR';
 
   /* if the user passes in a fen string, load it, else default to
    * starting position
    */
   if (typeof fen === 'undefined') {
+    console.log('fen undefined')
     load(DEFAULT_POSITION);
   } else {
+    console.log('loading fen')
     load(fen);
   }
 
