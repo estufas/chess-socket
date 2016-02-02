@@ -1,6 +1,5 @@
-angular.module('ChessCtrls', ['ChessServices'])
+angular.module('Authctrl', ['ChessServices'])
 .controller('HomeCtrl', ['$scope', function($scope) {
-	
 }])
 .controller('NavCtrl', ['$scope', 'Auth', 'Alerts', function($scope, Auth, Alerts) {
   $scope.alerts = Alerts.get();
@@ -45,10 +44,8 @@ angular.module('ChessCtrls', ['ChessServices'])
 }])
 .controller('SocketCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
   var socket = io();
-  //console.log(socket)
   $scope.message;
   $scope.sendChat = function(event) {
-    //console.log($scope.message);
     socket.emit('chat message', $scope.message);
     $scope.message = '';
   }

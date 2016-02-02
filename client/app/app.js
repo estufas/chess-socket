@@ -1,12 +1,12 @@
-var app = angular.module('ChessApp', ['ngRoute', 'ChessCtrls', 'ChessServices', 'ui.bootstrap']);
+var app = angular.module('ChessApp', ['ngRoute', 'Authctrl', 'ChessCtrls', 'ChessServices', 'ui.bootstrap']);
 
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 	$routeProvider
 		.when(
 			'/', {
-				templateUrl: 'app/views/index.html'
-			}
-		)
+				templateUrl: 'app/views/index.html',
+				controller: 'ChessMultplyPlayer'
+		})
 		.when('/signup', {
 		    templateUrl: 'app/views/userSignup.html',
 		    controller: 'SignupCtrl'
