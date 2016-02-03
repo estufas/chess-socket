@@ -1,0 +1,13 @@
+<!-- <script type="text/javascript" src="app/assets/js/chessboard-0.3.0.js"></script>
+<script type="text/javascript" src="app/assets/js/index.js"></script> -->
+<div class='col-md-4 col-xs-6 col-md-offset-1' ng-controller='ChessMultplyPlayer' ng-init='initGame()'>
+	<div id="board1" style="width: 400px"></div>
+</div>
+
+<div class='col-md-4 col-md-offset-2' ng-controller='SocketCtrl'>
+	<ul id="messages"></ul>
+	<form ng-submit="sendChat()">
+		<input id="m" autocomplete="off" ng-model="message" /><button>Send</button>
+	</form>
+</div>
+<!-- <h1>asdfesafas</h1> -->
