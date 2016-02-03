@@ -1,7 +1,5 @@
-var path 			= require('path');
-var app 			= require('express');
-var http            = require('http').Server(app);
-var io              = require('socket.io')(http);
+var path 		 = require('path');
+var app 		 = require('express');
 
 module.exports = {
 
@@ -9,9 +7,3 @@ module.exports = {
 	res.sendFile(path.join(__dirname, '../client/index.html'));
   }
 };
-// console.log('TEST');
-// io.on('connection', function(socket){
-//   socket.on('chat message', function(msg){
-//     io.emit('chat message', msg);
-//   });
-// });
