@@ -8,7 +8,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 				// controller: 'DashBoardCtrl'
 		})
 		.when(
-			'/dash-board', {
+			'/multi-player', {
 				templateUrl: 'app/views/multplyPlayer.html',
 				controller: 'ChessMultplyPlayer'
 		})
