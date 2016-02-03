@@ -4,7 +4,12 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 	$routeProvider
 		.when(
 			'/', {
-				templateUrl: 'app/views/index.html',
+				templateUrl: 'app/views/index.html'
+				// controller: 'DashBoardCtrl'
+		})
+		.when(
+			'/dash-board', {
+				templateUrl: 'app/views/dashBoard.html',
 				controller: 'ChessMultplyPlayer'
 		})
 		.when('/signup', {
