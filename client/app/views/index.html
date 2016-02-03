@@ -1,0 +1,41 @@
+<h1 class='text-center'>Do Some Shit</h1>
+  <!-- Modal -->
+
+<div ng-controller='User1Ctrl'>
+  <button ng-click='toggleModal()' class='btn btn-success'>Login</button>
+  <modal-dialog show='modalShown' width='400px' height='60%'>
+  <form ng-submit='userLogin()'>
+      <div class='form-group'>
+        <label for='email'>Email</label>
+        <input type='email' class='form-control' id='email' placeholder='Enter Email' ng-model='user.email'>
+      </div>
+      <div class='form-group'>
+        <label for='password'>Password</label>
+        <input type='password' class='form-control' id='password' placeholder='Enter Password' ng-model='user.password'>
+      </div>
+      <button type='submit' class='btn btn-succes'>Login</button>
+      </form>
+  </modal-dialog>
+</div>
+
+<div ng-controller='UserCtrl'>
+  <button ng-click='toggleModal()' class='btn btn-success'>Sign up</button>
+  <modal-dialog show='modalShown' width='400px' height='60%'>
+   <form ng-submit='userSignup()'>
+        <logend>Signup</logend>
+        <div class='form-group'>
+          <label for='email'>Email</label>
+          <input type='email' class='form-control' id='email' placeholder='Enter Email' ng-model='user.email'>
+        </div>
+        <div class='form-group'>
+          <label for='password'>Password</label>
+          <input type='password' class='form-control' id='password' placeholder='Enter Password' ng-model='user.password'>
+        </div>
+        <button type='submit' class='btn btn-succes'>Signup</button>
+      </form>
+  </modal-dialog>
+</div>
+
+
+
+
