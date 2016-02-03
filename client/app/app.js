@@ -2,23 +2,14 @@ var app = angular.module('ChessApp', ['ngRoute', 'Authctrl', 'ChessCtrls', 'Ches
 
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 	$routeProvider
+		.when('/', {
+		    templateUrl: 'app/views/index.html',
+		    controller: 'UserCtrl'
+		})
 		.when(
-			'/', {
-				templateUrl: 'app/views/index.html',
-				controller: 'ChessMultplyPlayer'
+			'/home', {
+				templateUrl: 'app/views/home.html',
 		})
-		.when('/signup', {
-		    templateUrl: 'app/views/userSignup.html',
-		    controller: 'SignupCtrl'
-		})
-		.when('/login', {
-		    templateUrl: 'app/views/userLogin.html',
-		    controller: 'LoginCtrl'
-		})
-		// .when('/dash', {
-		//     templateUrl: 'app/views/dash.html',
-		//     controller: 'SocketCtrl'
-		// })
 		.otherwise ({
 			templateUrl: 'views/404.html'
 		});

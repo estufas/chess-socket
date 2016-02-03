@@ -1,13 +1,13 @@
 // var request         = require('request');
-var express         = require('express');
-var mongoose        = require('mongoose');
-var bodyParser      = require('body-parser');
-var expressJWT      = require('express-jwt');
-var _               = require('lodash');
-var path 			      = require('path');
+var express       = require('express');
+var mongoose    = require('mongoose');
+var bodyParser  = require('body-parser');
+var expressJWT  = require('express-jwt');
+var _                 = require('lodash');
+var path            = require('path');
 var app             = express();
-var http            = require('http').Server(app);
-var io              = require('socket.io')(http);
+var http             = require('http').Server(app);
+var io                = require('socket.io')(http);
 var User            = require('./models/user');
 var secret          = "juicyjforpresident";
 
@@ -49,7 +49,7 @@ mongoose.connection.once('open', function(){
       res.status(401).send({message: 'You need an authorization token to view this information.'})
     }
   });
-  
+
   app.post('/api/auth', function(req, res) {
     User.findOne({email: req.body.email}, function(err, user) {
       if (err || !user) return res.send({message: 'User not found'});
