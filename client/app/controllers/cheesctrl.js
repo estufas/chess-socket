@@ -1,13 +1,11 @@
 angular.module('ChessCtrls', [])
 .controller('ChessMultplyPlayer', ['$scope', function($scope) {
-	var game;
 	$scope.initGame = function() {
-	  var board,
-	  statusEl = $('#status'),
-	  fenEl = $('#fen'),
-	  pgnEl = $('#pgn');
+		var board,
+		  statusEl = $('#status'),
+		  fenEl = $('#fen'),
+		  pgnEl = $('#pgn');
 
-	  game = new Chess()
 
 			// do not pick up pieces if the game is over
 			// only pick up pieces for the side to move
@@ -31,14 +29,12 @@ angular.module('ChessCtrls', [])
 			  if (move === null) return 'snapback';
 			  
 			  // handleMove(source, target);
-			  updateStatus();
 			};
 
 			// update the board position after the piece snap 
 			// for castling, en passant, pawn promotion
 			var onSnapEnd = function() {
 			  board.position(game.fen())
-			  console.log(cfg.position);
 			};
 
 			var updateStatus = function() {
@@ -84,23 +80,35 @@ angular.module('ChessCtrls', [])
 
 			board = ChessBoard('board1', cfg);
 			game = new Chess();
-			// console.log(cfg);
-			// updateStatus();
-		  // console.log(source);
-	}
-		  var socket = io();
-			console.log(socket);
+			updateStatus();
 
-		  var handleMove = function(source, target) {
-		  	console.log("DOING NOTHING");
-		    var move = game.move({from: source, to: target});
+		var socket = io();
+		console.log(socket);
+		$scope.handleMove = function(source, target) {
+			console.log('inside move');
+			console.log(game);
+		    move = game.move({from: source, to: target});
+		    console.log(move);
 		    socket.emit('move', move);
-		    // console.log("wyatt can you see me?")
-			}
-		  socket.on('move', function (msg) {
+		}
+		socket.on('move', function (msg) {
 		    game.move(msg);
 		    board.position(game.fen()); // fen is the board layout
-			});
+		});
+	};
+  var socket = io();
+	console.log(socket);
+
+  var handleMove = function(source, target) {
+  	console.log("DOING NOTHING");
+    var move = game.move({from: source, to: target});
+    socket.emit('move', move);
+    // console.log("wyatt can you see me?")
+	}
+  socket.on('move', function (msg) {
+    game.move(msg);
+    // board.position(game.fen()); // fen is the board layout
+	});
 
 }])
 

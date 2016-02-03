@@ -13,7 +13,7 @@ var secret          = "juicyjforpresident";
 
 
 io.on('connection', function(socket){
-  console.log('user joined chat');
+  console.log('user joined');
   socket.on('chat message', function(msg){
     console.log('message');
     io.emit('chat message', msg);

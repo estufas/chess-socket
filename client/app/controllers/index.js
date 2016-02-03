@@ -48,5 +48,8 @@ angular.module('Authctrl', ['ChessServices'])
   $scope.sendChat = function(event) {
     socket.emit('chat message', $scope.message);
     $scope.message = '';
-  }
+  };
+    socket.on('chat message', function(msg){
+      $('#messages').append($('<li>').text(msg));
+  })
 }])
