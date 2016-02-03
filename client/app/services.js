@@ -3,12 +3,12 @@ angular.module('ChessServices', ['ngResource'])
 	return {
 		saveToken: function(token) {
 			$window.localStorage['$secretrecipes-token'] = token;
-		},	
+		},
 		getToken: function() {
-			return $window.localStorage['secretrecipes-token']
+			return $window.localStorage['$secretrecipes-token']
 		},
 		removeToken: function() {
-			$window.localStorage.removeItem('secretrecipes-token');
+			$window.localStorage.removeItem('$secretrecipes-token');
 		},
 		isLoggedIn: function() {
 			var token = this.getToken();

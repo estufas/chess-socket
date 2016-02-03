@@ -27,11 +27,11 @@ angular.module('ChessCtrls', [])
 
 			  // illegal move
 			  if (move === null) return 'snapback';
-			  
+
 			  // handleMove(source, target);
 			};
 
-			// update the board position after the piece snap 
+			// update the board position after the piece snap
 			// for castling, en passant, pawn promotion
 			var onSnapEnd = function() {
 			  board.position(game.fen())
@@ -111,9 +111,11 @@ angular.module('ChessCtrls', [])
 	});
 
 }])
-.controller('DashBoardCtrl', ['$scope', function($scope) {
+.controller('DashBoardCtrl', ['$scope', 'Auth', function($scope, Auth) {
+	console.log(Auth.getToken());
 	var board,
-  game = new Chess();
+  	game = new Chess();
+
 
 	var makeRandomMove = function() {
 	  var possibleMoves = game.moves();
