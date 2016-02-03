@@ -88,7 +88,24 @@ angular.module('Authctrl', ['ChessServices'])
     socket.emit('chat message', $scope.message);
     $scope.message = '';
   };
-    socket.on('chat message', function(msg){
-      $('#messages').append($('<li>').text(msg));
+    socket.on('chat message', function(obj){
+      console.log(obj);
+      $('#messages').append($('<li>').text(obj.user + ' ' + obj.msg));
   })
+    socket.on('user connected', function(users) {
+      console.log(users);
+      $scope.objKeys = Object.keys(users);
+      $scope.$watch(function() {
+        console.log(users);
+        return $scope.objKeys
+      }, function(data) {
+        // $scope.watchObj = $scope.objKeys
+        console.log(data)
+      })
+      console.log(Object.keys(users)); 
+    })
+    socket.on('user leave', function(users) {
+      console.log()
+      $scope.objKeys = Object.keys(users);
+    })
 }])

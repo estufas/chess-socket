@@ -17,6 +17,7 @@
     "jsonwebtoken": "^5.5.4",
     "lodash": "^4.1.0",
     "mongoose": "^4.3.7",
+    "sanitize-html": "^1.11.3",
     "socket.io": "^1.4.5"
   }
 }

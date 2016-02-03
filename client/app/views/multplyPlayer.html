@@ -8,4 +8,11 @@
 	<form ng-submit="sendChat()">
 		<input id="m" autocomplete="off" ng-model="message" /><button>Send</button>
 	</form>
+	<div>
+		<ul>
+			<li ng-repeat='items in objKeys'>
+				{{items}}
+			</li>
+		</ul>
+	</div>
 </div>

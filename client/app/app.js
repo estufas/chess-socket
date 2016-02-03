@@ -3,8 +3,9 @@ var app = angular.module('ChessApp', ['ngRoute', 'Authctrl', 'ChessCtrls', 'Ches
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 	$routeProvider
 		.when('/', {
-		    templateUrl: 'app/views/index.html',
-		    controller: 'UserCtrl'
+		    templateUrl: 'app/views/index.html'
+		    // controller: 'UserCtrl'
+		})
 		.when(
 			'/dash-board', {
 				templateUrl: 'app/views/dashBoard.html'
