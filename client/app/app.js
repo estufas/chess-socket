@@ -15,10 +15,10 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 		    templateUrl: 'app/views/userLogin.html',
 		    controller: 'LoginCtrl'
 		})
-		.when('/dash', {
-		    templateUrl: 'app/views/dash.html',
-		    controller: 'SocketCtrl'
-		})
+		// .when('/dash', {
+		//     templateUrl: 'app/views/dash.html',
+		//     controller: 'SocketCtrl'
+		// })
 		.otherwise ({
 			templateUrl: 'views/404.html'
 		});
