@@ -18,11 +18,13 @@ io.on('connection', function(socket){
     console.log('message');
     io.emit('chat message', msg);
   });
+// Called when the client calls socket.emit('move')
   socket.on('move', function(msg) {
-    console.log('Move received in server' + msg);
-    // socket.broadcast.emit('move', msg);
+    console.log("SEE ME now", msg)
+    socket.broadcast.emit('move', msg);
   });
 });
+
 
 
 mongoose.connect('mongodb://localhost/final_project');

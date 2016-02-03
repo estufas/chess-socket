@@ -7,6 +7,7 @@ angular.module('ChessCtrls', [])
 		  fenEl = $('#fen'),
 		  pgnEl = $('#pgn');
 
+
 			// do not pick up pieces if the game is over
 			// only pick up pieces for the side to move
 			var onDragStart = function(source, piece, position, orientation) {
@@ -27,8 +28,8 @@ angular.module('ChessCtrls', [])
 
 			  // illegal move
 			  if (move === null) return 'snapback';
-			  $scope.handleMove(source, target);
-			  updateStatus();
+			  
+			  // handleMove(source, target);
 			};
 
 			// update the board position after the piece snap 
@@ -74,7 +75,7 @@ angular.module('ChessCtrls', [])
 			  draggable: true,
 			  position: 'start',
 			  onDragStart: onDragStart,
-			  onDrop: onDrop,
+			  onDrop: handleMove,
 			  onSnapEnd: onSnapEnd
 			};
 
@@ -96,6 +97,19 @@ angular.module('ChessCtrls', [])
 		    board.position(game.fen()); // fen is the board layout
 		});
 	}
+		  var socket = io();
+			console.log(socket);
+
+		  var handleMove = function(source, target) {
+		  	console.log("DOING NOTHING");
+		    var move = game.move({from: source, to: target});
+		    socket.emit('move', move);
+		    // console.log("wyatt can you see me?")
+			}
+		  socket.on('move', function (msg) {
+		    game.move(msg);
+		    board.position(game.fen()); // fen is the board layout
+			});
 
 }])
 
