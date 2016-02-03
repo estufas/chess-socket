@@ -1,0 +1,11 @@
+<div class='col-md-6' ng-controller='DashBoardCtrl'>
+	<div id="board" style="width: 400px"></div>
+</div>
+
+<div class='col-md-6' ng-controller='SocketCtrl'>
+	<ul id="messages"></ul>
+	<form ng-submit="sendChat()">
+		<input id="m" autocomplete="off" ng-model="message" /><button>Send</button>
+	</form>
+</div>
+<a href="/dash-board">Play Game</a>

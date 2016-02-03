@@ -5,10 +5,15 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 		.when('/', {
 		    templateUrl: 'app/views/index.html',
 		    controller: 'UserCtrl'
+		.when(
+			'/dash-board', {
+				templateUrl: 'app/views/dashBoard.html'
+				// controller: 'DashBoardCtrl'
 		})
 		.when(
-			'/home', {
-				templateUrl: 'app/views/home.html',
+			'/multi-player', {
+				templateUrl: 'app/views/multplyPlayer.html',
+				controller: 'ChessMultplyPlayer'
 		})
 		.otherwise ({
 			templateUrl: 'views/404.html'
