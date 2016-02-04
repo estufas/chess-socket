@@ -48,7 +48,8 @@ angular.module('Authctrl', ['ChessServices'])
   };
 }])
 .controller('User1Ctrl', ['$scope', '$http', '$location', 'Alerts', 'Auth',  function($scope, $http, $location, Alerts, Auth) {
-  console.log(Auth.isLoggedIn())
+  console.log(Auth.isLoggedIn());
+  var socket = io();
   $scope.user = {
     email: '',
     password: ''
@@ -85,7 +86,7 @@ angular.module('Authctrl', ['ChessServices'])
         // $scope.watchObj = $scope.objKeys
         console.log(data)
       })
-      console.log(Object.keys(users)); 
+      console.log(Object.keys(users));
     })
     socket.on('user leave', function(users) {
       console.log()

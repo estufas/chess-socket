@@ -66,7 +66,7 @@ app.post('/api/auth', function(req, res) {
       for (var user in users){
         userCount++;
       }
-    users["guest " + userCount] = socket.id 
+    users["guest " + userCount] = socket.id
     io.emit('user connected', users);
     console.log('user joined');
 
