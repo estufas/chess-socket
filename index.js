@@ -3,7 +3,6 @@ var express     = require('express');
 var mongoose    = require('mongoose');
 var bodyParser  = require('body-parser');
 var expressJWT  = require('express-jwt');
-<<<<<<< HEAD
 var _           = require('lodash');
 var path        = require('path');
 var app         = express();
@@ -11,18 +10,8 @@ var http        = require('http').Server(app);
 var io          = require('socket.io')(http);
 var User        = require('./models/user');
 var sanitizeHtml = require('sanitize-html');
-var secret      = "juicyjforpresident";
-
-
-=======
-var _                 = require('lodash');
-var path            = require('path');
-var app             = express();
-var http             = require('http').Server(app);
-var io                = require('socket.io')(http);
-var User            = require('./models/user');
-var jwt               = require('jsonwebtoken');
-var secret          = "juicyjforpresident";
+var jwt          = require('jsonwebtoken');
+var secret       = "juicyjforpresident";
 
 
 io.on('connection', function(socket){
