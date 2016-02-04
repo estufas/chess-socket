@@ -28,13 +28,38 @@ mongoose.connection.once('open', function(){
       res.status(401).send({message: 'You need an authorization token to view this information.'})
     }
 });
+//CHAT SOCKET STUFF
+  var users = {};
 
 //Starts server, and logs to terminal when connection is made
 io.on('connection', function(socket){
-  console.log('user joined');
+  var userCount = 1;
+      for (var user in users){
+        userCount++;
+      }
+  users["guest " + userCount] = socket.id
+  console.log('user joined', users);
+  io.emit('user connected', users);
+
   socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
+    var obj = {
+      msg : msg,
+      user : "guest " + userCount
+    }
+    io.emit('chat message', obj);
   });
+
+  socket.on('disconnect', function(){
+    delete users["guest " + userCount];
+      var obj = {
+        user  : user,
+        users : users
+      }
+    console.log(users, "DELETE");
+    io.emit('user leave', users);
+  })
+
+// CHESS SOCKET STUFF
 // Called when the client calls socket.emit('move')
   socket.on('move', function(msg) {
     console.log("SEE ME now", msg)

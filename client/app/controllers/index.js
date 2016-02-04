@@ -29,7 +29,6 @@ angular.module('Authctrl', ['ChessServices'])
     console.log(users);
     $scope.objKeys = Object.keys(users);
     $scope.$watch(function() {
-      console.log(users);
       return $scope.objKeys
     }, function(data) {
     // $scope.watchObj = $scope.objKeys
@@ -38,8 +37,8 @@ angular.module('Authctrl', ['ChessServices'])
   console.log(Object.keys(users));
   })
 //Posts messages from server to chatbox
-  socket.on('chat message', function(msg){
-    $('#messages').append($('<li>').text(msg));
+  socket.on('chat message', function(obj){
+    $('#messages').append($('<li>').text(obj['user'] + ' ' + obj['msg']));
   })
 //What happens when user leaves room
   socket.on('user leave', function(users) {
