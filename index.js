@@ -31,8 +31,10 @@ mongoose.connection.once('open', function(){
 //CHAT SOCKET STUFF
   var users = {};
 
+var rooms = ['room1','room2','room3'];
+
 //Starts server, and logs to terminal when connection is made
-io.on('connection', function(socket){
+io.sockets.on('connection', function(socket){
   var userCount = 1;
       for (var user in users){
         userCount++;
@@ -41,12 +43,37 @@ io.on('connection', function(socket){
   console.log('user joined', users);
   io.emit('user connected', users);
 
+  socket.on('adduser', function (user){
+    console.log("ANYONE HOME AT addUSER")
+    socket.user = Object.keys(users);
+    socket.room = 'room1';
+    socket.join('room1');
+    socket.emit('chat message', 'SERVER', 'you have connected to room1');
+    // echo to room 1 that a person has connected to their room
+    socket.broadcast.to('room1').emit('chat message', 'SERVER', user + ' has connected to this room');
+    console.log(rooms);
+    socket.emit('updaterooms', rooms, 'room1');
+  });
+
   socket.on('chat message', function(msg){
     var obj = {
       msg : msg,
       user : "guest " + userCount
     }
-    io.emit('chat message', obj);
+    io.sockets.in(socket.room).emit('chat message', socket.user, obj);
+  });
+
+  socket.on('switchRoom', function(newroom){
+    socket.leave(socket.room);
+    socket.join(newroom);
+    console.log(newroom, "LOOOOOOOOOOOOK");
+    socket.emit('updatechat', 'SERVER', 'you have connected to '+ newroom);
+    // sent message to OLD room
+    socket.broadcast.to(socket.room).emit('updatechat', 'SERVER', socket.user +' has left this room');
+    // update socket session room title
+    socket.room = newroom;
+    socket.broadcast.to(newroom).emit('updatechat', 'SERVER', socket.user +' has joined this room');
+    socket.emit('updaterooms', rooms, newroom);
   });
 
   socket.on('disconnect', function(){

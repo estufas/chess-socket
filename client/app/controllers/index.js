@@ -18,6 +18,7 @@ angular.module('Authctrl', ['ChessServices'])
 .controller('SocketCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
   var socket = io();
   $scope.message;
+  $scope.rooms = ['blah','blah1'];
 
 //Sends chat message to io server
    $scope.sendChat = function(event) {
@@ -34,12 +35,29 @@ angular.module('Authctrl', ['ChessServices'])
     // $scope.watchObj = $scope.objKeys
     console.log(data)
     })
-  console.log(Object.keys(users));
+    socket.emit('adduser');
   })
 //Posts messages from server to chatbox
-  socket.on('chat message', function(obj){
+  socket.on('chat message', function(user, obj){
     $('#messages').append($('<li>').text(obj['user'] + ' ' + obj['msg']));
   })
+
+  socket.on('updaterooms', function(rooms, current_room) {
+    $scope.rooms = rooms;
+    console.log(rooms, current_room);
+    // $.each(rooms, function(key, value) {
+    //   if (value == current_room){
+    //     $('#rooms').append($('<div>').text(value));
+    //   } else {
+    //     $('#rooms').append('<div><a href="#" onclick="switchRoom(\''+value+'\')">' + value + '</a></div>');
+    //   }
+    // })
+  })
+
+  $scope.switchRoom = function(room) {
+    console.log('Hola', room);
+    socket.emit('switchRoom', room);
+  }
 //What happens when user leaves room
   socket.on('user leave', function(users) {
     console.log('user left')
