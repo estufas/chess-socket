@@ -99,4 +99,3 @@ angular.module('Authctrl', ['ChessServices'])
     $scope.modalShown = !$scope.modalShown;
   };
 }])
-
