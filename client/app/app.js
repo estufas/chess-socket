@@ -26,17 +26,14 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 	$routeProvider
 		.when('/', {
 		    templateUrl: 'app/views/index.html'
-		    // controller: 'UserCtrl'
     		})
 		.when(
 			'/dash-board', {
 				templateUrl: 'app/views/dashBoard.html'
-				// controller: 'DashBoardCtrl'
 		})
 		.when(
 			'/multi-player', {
 				templateUrl: 'app/views/multplyPlayer.html',
-				controller: 'ChessMultplyPlayer'
 		})
 		.otherwise ({
 			templateUrl: 'app/views/404.html'
