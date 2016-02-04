@@ -27,7 +27,6 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 		.when('/', {
 		    templateUrl: 'app/views/index.html'
 		    // controller: 'UserCtrl'
-		})
     		})
 		.when(
 			'/dash-board', {
@@ -40,7 +39,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 				controller: 'ChessMultplyPlayer'
 		})
 		.otherwise ({
-			templateUrl: 'views/404.html'
+			templateUrl: 'app/views/404.html'
 		});
 
 		$locationProvider.html5Mode({

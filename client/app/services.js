@@ -2,13 +2,13 @@ angular.module('ChessServices', ['ngResource'])
 .factory('Auth',['$window', function($window){
 	return {
 		saveToken: function(token) {
-			$window.localStorage['$secretrecipes-token'] = token;
+			$window.localStorage['$authtoken'] = token;
 		},
 		getToken: function() {
-			return $window.localStorage['$secretrecipes-token']
+			return $window.localStorage['$authtoken']
 		},
 		removeToken: function() {
-			$window.localStorage.removeItem('$secretrecipes-token');
+			$window.localStorage.removeItem('$authtoken');
 		},
 		isLoggedIn: function() {
 			var token = this.getToken();

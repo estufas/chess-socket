@@ -1,7 +1,7 @@
 <h1 class='text-center'>Do Some Shit</h1>
   <!-- Modal -->
 
-<div ng-controller='User1Ctrl'>
+<div ng-controller='User1Ctrl' class='col-md-6 text-center'>
   <button ng-click='toggleModal()' class='btn btn-success'>Login</button>
   <modal-dialog show='modalShown' width='400px' height='60%'>
   <form ng-submit='userLogin()'>
@@ -18,7 +18,7 @@
   </modal-dialog>
 </div>
 
-<div ng-controller='UserCtrl'>
+<div ng-controller='UserCtrl' class='col-md-6 text-center'>
   <button ng-click='toggleModal()' class='btn btn-success'>Sign up</button>
   <modal-dialog show='modalShown' width='400px' height='60%'>
    <form ng-submit='userSignup()'>
@@ -35,6 +35,8 @@
       </form>
   </modal-dialog>
 </div>
+
+<a class='btn btn-success col-md-4 col-md-offset-4 text-center' href='/dash-board'>Continue as guest</a>
 
 
 
