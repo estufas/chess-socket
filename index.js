@@ -14,6 +14,7 @@ var jwt          = require('jsonwebtoken');
 var secret       = "juicyjforpresident";
 
 //Connect to mongo, then execute server logic
+// mongoose.connect( 'mongodb://production:final@ds060968.mongolab.com:60968/final');
 mongoose.connect('mongodb://localhost/final_project');
 mongoose.connection.once('open', function(){
 //Middleward etc.
@@ -29,22 +30,27 @@ mongoose.connection.once('open', function(){
     }
 });
 //CHAT SOCKET STUFF
-  var users = {};
-
+var users = {};
+var currentUser;
 var rooms = ['1', '2', '3'];
+var userCount;
+
 
 //Starts server, and logs to terminal when connection is made
 io.sockets.on('connection', function(socket){
-  var userCount = 1;
-      for (var user in users){
-        userCount++;
-      }
-  users["guest " + userCount] = socket.id
   console.log('user joined', users);
   io.emit('user connected', users);
 
   socket.on('adduser', function (user){
-    console.log("ANYONE HOME AT addUSER")
+    console.log(currentUser);
+    userCount = 1;
+    userCount ++;
+      if(currentUser) {
+        users[currentUser] = socket.id
+      } else {
+        users['guest'+userCount] = socket.id
+      }
+    console.log("Add User Function" + users)
     socket.user = Object.keys(users);
     socket.room = '1';
     socket.join('1');
@@ -77,14 +83,22 @@ io.sockets.on('connection', function(socket){
   });
 
   socket.on('disconnect', function(){
+    if(currentUser) {
+      delete users[currentUser]
+      var obj = {
+        // user  : user,
+        users : users
+      }
+    } else {
     delete users["guest " + userCount];
       var obj = {
-        user  : user,
+        // user  : user,
         users : users
       }
     console.log(users, "DELETE");
     io.emit('user leave', users);
-  })
+  }
+})
 
 // CHESS SOCKET STUFF
 // Called when the client calls socket.emit('move')
@@ -101,6 +115,8 @@ app.post('/api/auth', function(req, res) {
     if (err || !user) return res.send({message: 'User not found'});
     user.authenticated(req.body.password, function(err, result) {
       if (err || !result) return res.send({message: 'User not authenticated'});
+      console.log(user.name + 'LOOOOOOOOOOKKKKK HHHHHHHEEEEEERRRRRREEE');
+      currentUser = user.name;
       var token = jwt.sign(user, secret);
       res.send({user: user, token: token});
     });
@@ -111,7 +127,5 @@ app.post('/api/auth', function(req, res) {
   _.each(routes, function(controller, route) {
     app.use(route, controller);
   });
-  http.listen(3000, function(){
-    console.log('listening on port 3000');
-  });
+  http.listen(process.env.PORT || 3000);
 })
