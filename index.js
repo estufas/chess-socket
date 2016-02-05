@@ -14,7 +14,8 @@ var jwt          = require('jsonwebtoken');
 var secret       = "juicyjforpresident";
 
 //Connect to mongo, then execute server logic
-mongoose.connect( 'mongodb://wyatt:wasted00@ds060968.mongolab.com:60968/final');
+// mongoose.connect( 'mongodb://production:project@ds060968.mongolab.com:60968/final');
+mongoose.connect('mongodb://localhost/final_project')
 mongoose.connection.once('open', function(){
 //Middleward etc.
   app.use(bodyParser.json());
@@ -29,21 +30,21 @@ mongoose.connection.once('open', function(){
     }
 });
 //CHAT SOCKET STUFF
-  var users = {};
-
+var users = {};
+var userCount;
 var rooms = ['1', '2', '3'];
 
 //Starts server, and logs to terminal when connection is made
 io.sockets.on('connection', function(socket){
-  var userCount = 1;
+  console.log('connected', users);
+  io.emit('user connected', users);
+
+  socket.on('adduser', function (user){
+      userCount = 1;
       for (var user in users){
         userCount++;
       }
   users["guest " + userCount] = socket.id
-  console.log('user joined', users);
-  io.emit('user connected', users);
-
-  socket.on('adduser', function (user){
     console.log("ANYONE HOME AT addUSER")
     socket.user = Object.keys(users);
     socket.room = '1';
@@ -79,7 +80,7 @@ io.sockets.on('connection', function(socket){
   socket.on('disconnect', function(){
     delete users["guest " + userCount];
       var obj = {
-        user  : user,
+        // user  : user,
         users : users
       }
     console.log(users, "DELETE");
