@@ -14,7 +14,7 @@ var jwt          = require('jsonwebtoken');
 var secret       = "juicyjforpresident";
 
 //Connect to mongo, then execute server logic
-mongoose.connect( 'mongodb://<dbuser>:<dbpassword>@ds060968.mongolab.com:60968/final');
+mongoose.connect( 'mongodb://wyatt:wasted00@ds060968.mongolab.com:60968/final');
 mongoose.connection.once('open', function(){
 //Middleward etc.
   app.use(bodyParser.json());
