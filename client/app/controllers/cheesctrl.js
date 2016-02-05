@@ -1,5 +1,5 @@
 angular.module('ChessCtrls', [])
-.controller('ChessMultplyPlayer', ['$scope', function($scope) {
+.controller('ChessMultplyPlayer', ['$scope', '$timeout', '$location',  function($scope, $timeout, $location) {
 	$scope.initGame = function() {
 		var board,
 		  statusEl = $('#status'),
@@ -95,6 +95,25 @@ angular.module('ChessCtrls', [])
     game.move(msg);
     // board.position(game.fen()); // fen is the board layout
 	});
+$scope.switchRoom = function(room) {
+    socket.emit('switchRoom', room);
+    console.log('Hola', room);
+  }
+//What happens when user leaves room
+  socket.on('user leave', function(users) {
+    console.log('user left')
+    $scope.objKeys = Object.keys(users);
+  })
+  $timeout(function(){
+      if($location.path() === '/multi-player1') {
+        $scope.switchRoom('1')
+      }  else if($location.path() === '/multi-player2') {
+        $scope.switchRoom('2')
+      }  else if($location.path() === '/multi-player3') {
+        console.log('TEST TETSEgsggs')
+        $scope.switchRoom('3')
+      }
+  }, 700)
 
 }])
 .controller('DashBoardCtrl', ['$scope', 'Auth', function($scope, Auth) {

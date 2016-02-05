@@ -65,17 +65,17 @@ angular.module('Authctrl', ['ChessServices'])
   socket.on('user leave', function(users) {
     console.log('user left')
     $scope.objKeys = Object.keys(users);
-    })
+  })
   $timeout(function(){
-  if($location.path() === '/multi-player1') {
-    $scope.switchRoom('1')
-  }  else if($location.path() === '/multi-player2') {
-    $scope.switchRoom('2')
-  }  else if($location.path() === '/multi-player3') {
-    console.log('TEST TETSEgsggs')
-    $scope.switchRoom('3')
-  }
-}, 700)
+      if($location.path() === '/multi-player1') {
+        $scope.switchRoom('1')
+      }  else if($location.path() === '/multi-player2') {
+        $scope.switchRoom('2')
+      }  else if($location.path() === '/multi-player3') {
+        console.log('TEST TETSEgsggs')
+        $scope.switchRoom('3')
+      }
+  }, 700)
 }])
 
 
