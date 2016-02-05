@@ -14,13 +14,8 @@ var jwt          = require('jsonwebtoken');
 var secret       = "juicyjforpresident";
 
 //Connect to mongo, then execute server logic
-<<<<<<< HEAD
-// mongoose.connect( 'mongodb://heroku:heroku@ds060968.mongolab.com:60968/final');
-mongoose.connect('mongodb://localhost/final_project')
-=======
 // mongoose.connect( 'mongodb://production:final@ds060968.mongolab.com:60968/final');
 mongoose.connect('mongodb://localhost/final_project');
->>>>>>> 97d9dab8dd98113d1afa1d67c122b82dd41c1c7e
 mongoose.connection.once('open', function(){
 //Middleward etc.
   app.use(bodyParser.json());
@@ -35,7 +30,6 @@ mongoose.connection.once('open', function(){
     }
 });
 //CHAT SOCKET STUFF
-<<<<<<< HEAD
 var tokenName;
 var users = {};
 var userCount;
@@ -59,32 +53,6 @@ io.sockets.on('connection', function(socket){
     // socket.user = Object.keys(users);
     // socket.room = '1';
     // socket.join('1');
-=======
-var users = {};
-var currentUser;
-var rooms = ['1', '2', '3'];
-var userCount;
-
-
-//Starts server, and logs to terminal when connection is made
-io.sockets.on('connection', function(socket){
-  console.log('user joined', users);
-  io.emit('user connected', users);
-
-  socket.on('adduser', function (user){
-    console.log(currentUser);
-    userCount = 1;
-    userCount ++;
-      if(currentUser) {
-        users[currentUser] = socket.id
-      } else {
-        users['guest'+userCount] = socket.id
-      }
-    console.log("Add User Function" + users)
-    socket.user = Object.keys(users);
-    socket.room = '1';
-    socket.join('1');
->>>>>>> 97d9dab8dd98113d1afa1d67c122b82dd41c1c7e
     // socket.emit('chat message', 'SERVER', 'you have connected to room1');
     // // echo to room 1 that a person has connected to their room
     socket.broadcast.to('1').emit('chat message',  user);
