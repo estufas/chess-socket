@@ -111,7 +111,5 @@ app.post('/api/auth', function(req, res) {
   _.each(routes, function(controller, route) {
     app.use(route, controller);
   });
-  http.listen(3000, function(){
-    console.log('listening on port 3000');
-  });
+  http.listen(process.env.PORT || 3000);
 })
