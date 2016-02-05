@@ -39,7 +39,6 @@ var userCount = 0;
 //Starts server, and logs to terminal when connection is made
 io.sockets.on('connection', function(socket){
   console.log('connected', users);
-  io.emit('user connected', users);
 
   socket.on('adduser', function (user){
       if(tokenName) {
@@ -49,13 +48,15 @@ io.sockets.on('connection', function(socket){
         users["guest " + userCount] = socket.id
       }
       console.log(users);
+      // io.emit('user connected', users);
+
     // console.log("ANYONE HOME AT addUSER")
     // socket.user = Object.keys(users);
     // socket.room = '1';
     // socket.join('1');
     // socket.emit('chat message', 'SERVER', 'you have connected to room1');
     // // echo to room 1 that a person has connected to their room
-    socket.broadcast.to('1').emit('chat message',  user);
+    // socket.broadcast.to('1').emit('chat message',  user);
     console.log(rooms);
     socket.emit('updaterooms', rooms, '1');
   });
@@ -85,13 +86,13 @@ io.sockets.on('connection', function(socket){
     if(currentUser) {
       delete users[currentUser]
       var obj = {
-        // user  : user,
+        user  : user,
         users : users
       }
     } else {
     delete users["guest " + userCount];
       var obj = {
-        // user  : user,
+        user  : user,
         users : users
       }
     console.log(users, "DELETE");
