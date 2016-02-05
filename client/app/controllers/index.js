@@ -27,7 +27,7 @@ angular.module('Authctrl', ['ChessServices'])
   };
 //Client response when user connects to server
   socket.on('user connected', function(users) {
-    console.log(users);
+    console.log(users + 'CHECK');
     $scope.objKeys = Object.keys(users);
     $scope.$watch(function() {
       return $scope.objKeys
@@ -106,7 +106,6 @@ angular.module('Authctrl', ['ChessServices'])
 }])
 .controller('User1Ctrl', ['$scope', '$http', '$location', 'Alerts', 'Auth',  function($scope, $http, $location, Alerts, Auth) {
   console.log(Auth.isLoggedIn());
-  var socket = io();
   $scope.user = {
     email: '',
     password: ''
