@@ -27,7 +27,7 @@ angular.module('Authctrl', ['ChessServices'])
   };
 //Client response when user connects to server
   socket.on('user connected', function(users) {
-    console.log(users);
+    console.log(users + 'CHECK');
     $scope.objKeys = Object.keys(users);
     $scope.$watch(function() {
       return $scope.objKeys
