@@ -31,10 +31,18 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 			'/dash-board', {
 				templateUrl: 'app/views/dashBoard.html'
 		})
-		.when(
-			'/multi-player', {
-				templateUrl: 'app/views/multplyPlayer.html',
-		})
+        	.when(
+                    '/multi-player1', {
+                        templateUrl: 'app/views/multplyPlayer1.html'
+              })
+              .when(
+                    '/multi-player2', {
+                      templateUrl: 'app/views/multplyPlayer2.html'
+              })
+              .when(
+              	'/multi-player3', {
+              	   templateUrl: 'app/views/multplyPlayer3.html'
+        	})
 		.otherwise ({
 			templateUrl: 'app/views/404.html'
 		});

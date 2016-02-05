@@ -81,20 +81,6 @@ angular.module('ChessCtrls', [])
 			board = ChessBoard('board1', cfg);
 			game = new Chess();
 			updateStatus();
-
-		var socket = io();
-		console.log(socket);
-		$scope.handleMove = function(source, target) {
-			console.log('inside move');
-			console.log(game);
-		    move = game.move({from: source, to: target});
-		    console.log(move);
-		    socket.emit('move', move);
-		}
-		socket.on('move', function (msg) {
-		    game.move(msg);
-		    board.position(game.fen()); // fen is the board layout
-		});
 	};
   var socket = io();
 	console.log(socket);

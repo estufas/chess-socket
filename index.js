@@ -31,7 +31,7 @@ mongoose.connection.once('open', function(){
 //CHAT SOCKET STUFF
   var users = {};
 
-var rooms = ['room1','room2','room3'];
+var rooms = ['1', '2', '3'];
 
 //Starts server, and logs to terminal when connection is made
 io.sockets.on('connection', function(socket){
@@ -46,13 +46,13 @@ io.sockets.on('connection', function(socket){
   socket.on('adduser', function (user){
     console.log("ANYONE HOME AT addUSER")
     socket.user = Object.keys(users);
-    socket.room = 'room1';
-    socket.join('room1');
-    socket.emit('chat message', 'SERVER', 'you have connected to room1');
-    // echo to room 1 that a person has connected to their room
-    socket.broadcast.to('room1').emit('chat message', 'SERVER', user + ' has connected to this room');
+    socket.room = '1';
+    socket.join('1');
+    // socket.emit('chat message', 'SERVER', 'you have connected to room1');
+    // // echo to room 1 that a person has connected to their room
+    socket.broadcast.to('1').emit('chat message',  user);
     console.log(rooms);
-    socket.emit('updaterooms', rooms, 'room1');
+    socket.emit('updaterooms', rooms, '1');
   });
 
   socket.on('chat message', function(msg){
