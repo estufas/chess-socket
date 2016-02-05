@@ -30,30 +30,29 @@ mongoose.connection.once('open', function(){
     }
 });
 //CHAT SOCKET STUFF
+var tokenName;
 var users = {};
-var currentUser;
-var rooms = ['1', '2', '3'];
 var userCount;
-
+var rooms = ['1', '2', '3'];
+var userCount = 0;
 
 //Starts server, and logs to terminal when connection is made
 io.sockets.on('connection', function(socket){
-  console.log('user joined', users);
+  console.log('connected', users);
   io.emit('user connected', users);
 
   socket.on('adduser', function (user){
-    console.log(currentUser);
-    userCount = 1;
-    userCount ++;
-      if(currentUser) {
-        users[currentUser] = socket.id
+      if(tokenName) {
+        users[tokenName] = socket.id;
       } else {
-        users['guest'+userCount] = socket.id
+      userCount ++;
+        users["guest " + userCount] = socket.id
       }
-    console.log("Add User Function" + users)
-    socket.user = Object.keys(users);
-    socket.room = '1';
-    socket.join('1');
+      console.log(users);
+    // console.log("ANYONE HOME AT addUSER")
+    // socket.user = Object.keys(users);
+    // socket.room = '1';
+    // socket.join('1');
     // socket.emit('chat message', 'SERVER', 'you have connected to room1');
     // // echo to room 1 that a person has connected to their room
     socket.broadcast.to('1').emit('chat message',  user);
@@ -118,6 +117,7 @@ app.post('/api/auth', function(req, res) {
       console.log(user.name + 'LOOOOOOOOOOKKKKK HHHHHHHEEEEEERRRRRREEE');
       currentUser = user.name;
       var token = jwt.sign(user, secret);
+      tokenName = user.name;
       res.send({user: user, token: token});
     });
   });

@@ -32,8 +32,7 @@ angular.module('Authctrl', ['ChessServices'])
     $scope.$watch(function() {
       return $scope.objKeys
     }, function(data) {
-    // $scope.watchObj = $scope.objKeys
-    console.log(data)
+      console.log(data)
     })
     socket.emit('adduser');
   })
@@ -45,17 +44,7 @@ angular.module('Authctrl', ['ChessServices'])
   socket.on('updaterooms', function(rooms, current_room) {
     $scope.rooms = rooms;
     console.log(rooms, current_room);
-    // $.each(rooms, function(key, value) {
-    //   if (value == current_room){
-    //     $('#rooms').append($('<div>').text(value));
-    //   } else {
-    //     $('#rooms').append('<div><a href="#" onclick="switchRoom(\''+value+'\')">' + value + '</a></div>');
-    //   }
-    // })
   })
-  // $scope.pageSwitch = function(room) {
-  //   $location.path('/multi-player'+room);
-  // };
 
   $scope.switchRoom = function(room) {
     socket.emit('switchRoom', room);
