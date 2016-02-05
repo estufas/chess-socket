@@ -15,10 +15,10 @@ angular.module('Authctrl', ['ChessServices'])
 
 
 
-.controller('SocketCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
+.controller('SocketCtrl', ['$scope', '$http', '$location','$timeout', function($scope, $http, $location, $timeout) {
   var socket = io();
   $scope.message;
-  $scope.rooms = ['blah','blah1'];
+  $scope.rooms = [];
 
 //Sends chat message to io server
    $scope.sendChat = function(event) {
@@ -53,16 +53,29 @@ angular.module('Authctrl', ['ChessServices'])
     //   }
     // })
   })
+  // $scope.pageSwitch = function(room) {
+  //   $location.path('/multi-player'+room);
+  // };
 
   $scope.switchRoom = function(room) {
-    console.log('Hola', room);
     socket.emit('switchRoom', room);
+    console.log('Hola', room);
   }
 //What happens when user leaves room
   socket.on('user leave', function(users) {
     console.log('user left')
     $scope.objKeys = Object.keys(users);
     })
+  $timeout(function(){
+  if($location.path() === '/multi-player1') {
+    $scope.switchRoom('1')
+  }  else if($location.path() === '/multi-player2') {
+    $scope.switchRoom('2')
+  }  else if($location.path() === '/multi-player3') {
+    console.log('TEST TETSEgsggs')
+    $scope.switchRoom('3')
+  }
+}, 700)
 }])
 
 

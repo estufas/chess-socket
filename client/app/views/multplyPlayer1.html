@@ -4,18 +4,21 @@
 </div>
 
 <div class='col-md-6' ng-controller='SocketCtrl'>
-	<ul id="messages"></ul>
+	<ul id="messages">
+		<li>Chat Messages</li>
+	</ul>
 	<form ng-submit="sendChat()">
 		<input id="m" autocomplete="off" ng-model="message" /><button>Send</button>
 	</form>
 	<div>
 		<ul>
+			<li>Users List</li>
 			<li ng-repeat='items in objKeys'>
 				{{items}}
 			</li>
 		</ul>
 	</div>
 	<div id="rooms">
-		<a ng-repeat="room in rooms" ng-click="switchRoom(room)">{{room}}</a>
+    <button ng-repeat="room in rooms" ><a href='/multi-player{{room}}'>Room #{{room}}</a></button>
 	</div>
 </div>
