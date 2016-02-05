@@ -80,7 +80,7 @@ io.sockets.on('connection', function(socket){
   socket.on('disconnect', function(){
     delete users["guest " + userCount];
       var obj = {
-        // user  : user,
+        user  : user,
         users : users
       }
     console.log(users, "DELETE");
