@@ -90,7 +90,8 @@ io.sockets.on('connection', function(socket){
 // Called when the client calls socket.emit('move')
   socket.on('move', function(msg) {
     console.log("SEE ME now", msg)
-    socket.broadcast.emit('move', msg);
+    io.sockets.in(socket.room).emit('move', msg)
+    // socket.broadcast.emit('move', msg);
   });
 });
 
