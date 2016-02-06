@@ -38,7 +38,7 @@ angular.module('Authctrl', ['ChessServices'])
   })
 //Posts messages from server to chatbox
   socket.on('chat message', function(user, obj){
-    $('#messages').append($('<li>').text(obj['user'] + ' ' + obj['msg']));
+    $('#chatWindow').append($('<p>').text(obj['user'] + ' ' + obj['msg']));
   })
 
   socket.on('updaterooms', function(rooms, current_room) {
