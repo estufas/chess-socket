@@ -30,7 +30,8 @@ mongoose.connection.once('open', function(){
     }
 });
 //CHAT SOCKET STUFF
-var tokenName;
+var tokenName = [];
+var newUser = false;
 var users = {};
 var userCount;
 var rooms = ['1', '2', '3'];
@@ -42,8 +43,9 @@ io.sockets.on('connection', function(socket){
   io.emit('user connected', users);
 
   socket.on('adduser', function (user){
-      if(tokenName) {
+      if(newUser) {
         users[tokenName] = socket.id;
+        newUser = false;
       } else {
       userCount ++;
         users["guest " + userCount] = socket.id
@@ -101,7 +103,7 @@ io.sockets.on('connection', function(socket){
         user  : "guest" + userCount,
         users : users
       }
-    console.log( "DELETE");
+    console.log("DELETE");
     io.emit('user leave', users);
   }
 })
@@ -122,7 +124,8 @@ app.post('/api/auth', function(req, res) {
     user.authenticated(req.body.password, function(err, result) {
       if (err || !result) return res.send({message: 'User not authenticated'});
       console.log(user.name + 'LOOOOOOOOOOKKKKK HHHHHHHEEEEEERRRRRREEE');
-      tokenName = user.name;
+      tokenName.push(user.name);
+      newUser = true;
       var token = jwt.sign(user, secret);
       tokenName = user.name;
       res.send({user: user, token: token});
