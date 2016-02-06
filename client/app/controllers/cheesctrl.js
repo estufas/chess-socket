@@ -1,6 +1,7 @@
 angular.module('ChessCtrls', [])
 .controller('ChessMultplyPlayer', ['$scope', '$timeout', '$location',  function($scope, $timeout, $location) {
-	$scope.initGame = function() {
+    $scope.moveHistory = [];
+    $scope.initGame = function() {
 		var board,
 		  statusEl = $('#status'),
 		  fenEl = $('#fen'),
@@ -84,15 +85,17 @@ angular.module('ChessCtrls', [])
 	};
   var socket = io();
 	console.log(socket);
-
   var handleMove = function(source, target) {
   	console.log("DOING NOTHING");
     var move = game.move({from: source, to: target});
     socket.emit('move', move);
     // console.log("wyatt can you see me?")
 	}
+
   socket.on('move', function (msg) {
     game.move(msg);
+    $scope.moveHistory.push(msg);
+    console.log($scope.moveHistory);
     // board.position(game.fen()); // fen is the board layout
 	});
 $scope.switchRoom = function(room) {

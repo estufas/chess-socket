@@ -1,6 +1,17 @@
 <div class='col-md-6' ng-controller='ChessMultplyPlayer'>
   <div id="board1" style="width: 400px"></div>
   <button ng-click='initGame()'>asdfdsa</button>
+    <div>
+    <h3>Past 8 Moves</h3>
+    <ul>
+      <li ng-repeat='items in moveHistory | limitTo:8'>
+        Color: {{ items.color }}
+        Piece: {{ items.piece }}
+        From: {{ items.from }}
+        To: {{ items.to }}
+      </li>
+    </ul>
+  </div>
 </div>
 
 <div class='col-md-6' ng-controller='SocketCtrl'>
