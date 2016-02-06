@@ -90,11 +90,11 @@ angular.module('ChessCtrls', [])
     var move = game.move({from: source, to: target});
     socket.emit('move', move);
     // console.log("wyatt can you see me?")
-	}
+}
 
   socket.on('move', function (msg) {
     game.move(msg);
-    $scope.moveHistory.push(msg);
+    $scope.moveHistory.unshift(msg);
     console.log($scope.moveHistory);
     // board.position(game.fen()); // fen is the board layout
 	});
