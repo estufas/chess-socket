@@ -24,6 +24,7 @@ angular.module('Authctrl', ['ChessServices'])
    $scope.sendChat = function(event) {
     socket.emit('chat message', $scope.message);
     $scope.message = '';
+    
   };
 //Client response when user connects to server
   socket.on('user connected', function(users) {
@@ -38,7 +39,15 @@ angular.module('Authctrl', ['ChessServices'])
   })
 //Posts messages from server to chatbox
   socket.on('chat message', function(user, obj){
-    $('#messages').append($('<li>').text(obj['user'] + ' ' + obj['msg']));
+    chatWindow = $('#chatWindow')
+    
+    isScrolledToBottom = chatWindow[0].scrollHeight - chatWindow.outerHeight() <= chatWindow.scrollTop() + 1;
+
+    chatWindow.append($('<p>').text(obj['user'] + ' ' + obj['msg']));
+
+    if(isScrolledToBottom) {
+      scrollWindow();
+    }
   })
 
   socket.on('updaterooms', function(rooms, current_room) {
@@ -65,6 +74,11 @@ angular.module('Authctrl', ['ChessServices'])
         $scope.switchRoom('3')
       }
   }, 700)
+
+  var scrollWindow = function() {
+    var chatWindow = $('#chatWindow');
+    chatWindow[0].scrollTop = chatWindow[0].scrollHeight - chatWindow.outerHeight();
+  }
 }])
 
 
