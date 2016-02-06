@@ -30,7 +30,8 @@ mongoose.connection.once('open', function(){
     }
 });
 //CHAT SOCKET STUFF
-var tokenName;
+var tokenName = [];
+var newUser = false;
 var users = {};
 var userCount;
 var rooms = ['1', '2', '3'];
@@ -39,33 +40,40 @@ var userCount = 0;
 //Starts server, and logs to terminal when connection is made
 io.sockets.on('connection', function(socket){
   console.log('connected', users);
+  io.emit('user connected', users);
 
   socket.on('adduser', function (user){
-      if(tokenName) {
+      if(newUser) {
         users[tokenName] = socket.id;
+        newUser = false;
       } else {
       userCount ++;
         users["guest " + userCount] = socket.id
       }
       console.log(users);
-      // io.emit('user connected', users);
-
     // console.log("ANYONE HOME AT addUSER")
     // socket.user = Object.keys(users);
     // socket.room = '1';
     // socket.join('1');
     // socket.emit('chat message', 'SERVER', 'you have connected to room1');
     // // echo to room 1 that a person has connected to their room
-    // socket.broadcast.to('1').emit('chat message',  user);
+    socket.broadcast.to('1').emit('chat message',  user);
     console.log(rooms);
     socket.emit('updaterooms', rooms, '1');
   });
 
   socket.on('chat message', function(msg){
+    if(tokenName) {
+      var obj = {
+        msg : msg,
+        user : tokenName
+      }
+    } else {
     var obj = {
       msg : msg,
       user : "guest " + userCount
     }
+  }
     io.sockets.in(socket.room).emit('chat message', socket.user, obj);
   });
 
@@ -83,19 +91,19 @@ io.sockets.on('connection', function(socket){
   });
 
   socket.on('disconnect', function(){
-    if(currentUser) {
-      delete users[currentUser]
+    if(tokenName) {
+      delete users[tokenName]
       var obj = {
-        user  : user,
+        user  : tokenName,
         users : users
       }
     } else {
     delete users["guest " + userCount];
       var obj = {
-        user  : user,
+        user  : "guest" + userCount,
         users : users
       }
-    console.log(users, "DELETE");
+    console.log("DELETE");
     io.emit('user leave', users);
   }
 })
@@ -116,7 +124,8 @@ app.post('/api/auth', function(req, res) {
     user.authenticated(req.body.password, function(err, result) {
       if (err || !result) return res.send({message: 'User not authenticated'});
       console.log(user.name + 'LOOOOOOOOOOKKKKK HHHHHHHEEEEEERRRRRREEE');
-      currentUser = user.name;
+      tokenName.push(user.name);
+      newUser = true;
       var token = jwt.sign(user, secret);
       tokenName = user.name;
       res.send({user: user, token: token});
