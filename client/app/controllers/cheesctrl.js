@@ -3,23 +3,12 @@ angular.module('ChessCtrls', [])
     $scope.moveHistory = [];
     var rotated = false;
     var moveColor;
-$scope.boardSwitch = function() {
-    var div = document.getElementById('board1');
-    deg = rotated ? 0 : 180;
-    div.style.webkitTransform = 'rotate('+deg+'deg)';
-    div.style.mozTransform    = 'rotate('+deg+'deg)';
-    div.style.msTransform     = 'rotate('+deg+'deg)';
-    div.style.oTransform      = 'rotate('+deg+'deg)';
-    div.style.transform       = 'rotate('+deg+'deg)';
-    rotated = !rotated;
-    }
 
-
+    var board;
     $scope.initGame = function() {
-		var board,
-		  statusEl = $('#status'),
-		  fenEl = $('#fen'),
-		  pgnEl = $('#pgn');
+	  statusEl = $('#status'),
+	  fenEl = $('#fen'),
+	  pgnEl = $('#pgn');
 
 
 	// do not pick up pieces if the game is over
@@ -95,11 +84,12 @@ $scope.boardSwitch = function() {
 	};
 
 	board = ChessBoard('board1', cfg);
+              document.getElementById('flipButton').addEventListener('click', board.flip);
 	game = new Chess();
 	updateStatus();
 	};
   var socket = io();
-	console.log(socket);
+console.log(socket);
   var handleMove = function(source, target) {
   	console.log("DOING NOTHING");
     var move = game.move({from: source, to: target});
