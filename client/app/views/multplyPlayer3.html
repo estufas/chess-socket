@@ -15,11 +15,10 @@
 </div>
 
 <div class='col-md-6' ng-controller='SocketCtrl'>
-  <ul id="messages">
-    <li>Chat Messages</li>
-  </ul>
+<div class="panel-body" id="chatWindow">
+      </div>
   <form ng-submit="sendChat()">
-    <input id="m" autocomplete="off" ng-model="message" /><button>Send</button>
+    <input id="m" autocomplete="off" placeholder="White Iversone" ng-model="message" /><button>Send</button>
   </form>
   <div>
     <ul>
