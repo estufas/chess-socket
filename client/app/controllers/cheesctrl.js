@@ -111,6 +111,7 @@ console.log(socket);
 //Sends chat message to io server
    $scope.groupChat = function(event) {
     socket.emit('chat message', $scope.message);
+    console.log($scope.message);
     $scope.message = '';
 
   };
@@ -124,6 +125,7 @@ console.log(socket);
 //Posts messages from server to chatbox
   socket.on('chat message', function(msg, tokenName){
     chatWindow = $('#groupChat')
+    console.log("hello from chat");
 
     isScrolledToBottom = chatWindow[0].scrollHeight - chatWindow.outerHeight() <= chatWindow.scrollTop() + 1;
     if (tokenName) {
