@@ -75,7 +75,7 @@ angular.module('ChessCtrls', [])
 	};
 
 	var cfg = {
-                                  orientation: 'white',
+               orientation: 'white',
 	  draggable: true,
 	  position: 'start',
 	  onDragStart: onDragStart,
@@ -134,9 +134,8 @@ console.log(socket);
   })
 
   socket.on('move', function (msg) {
-    game.move(msg);
     $scope.moveHistory.unshift(msg);
-    console.log($scope.moveHistory);
+    game.move(msg);
     // board.position(game.fen()); // fen is the board layout
 	});
 $scope.switchRoom = function(room) {

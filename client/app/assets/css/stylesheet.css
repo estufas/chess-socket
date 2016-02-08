@@ -1,6 +1,36 @@
-#chatWindow {
+.panel-body#chatWindow {
   height: 450px;
   overflow: scroll;
   position: relative;
-  border: 2px solid black;
+  border: 2px solid grey;
+}
+.panel-body#chatWindow p:nth-child(odd) {
+    background: #eee;
+}
+/*images on home page*/
+#homeImage {
+    opacity: 0.5;
+    width: 80%;
+    margin: auto;
+}
+/*modal styles*/
+.ng-modal-dialog {
+  position: absolute;
+  width: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  background-color: #fff;
+  box-shadow: 4px 4px 80px #000;
+}
+.ng-modal-dialog-content {
+  padding:10px;
+  text-align: center;
+}
+form {padding: 3px; position: relative; bottom: 0; width: 100%; }
+form input { border: 2px solid grey; padding: 10px; width: 73%; margin-right: .5%; }
+form button {
+    width: 25%;
+    padding: 10px;
 }
