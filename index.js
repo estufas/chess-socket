@@ -14,8 +14,8 @@ var jwt          = require('jsonwebtoken');
 var secret       = "juicyjforpresident";
 
 //Connect to mongo, then execute server logic
-// mongoose.connect( 'mongodb://production:final@ds060968.mongolab.com:60968/final');
-mongoose.connect('mongodb://localhost/final_project');
+mongoose.connect( 'mongodb://production:final@ds060968.mongolab.com:60968/final');
+// mongoose.connect('mongodb://localhost/final_project');
 mongoose.connection.once('open', function(){
 //Middleward etc.
   app.use(bodyParser.json());
@@ -69,7 +69,7 @@ io.sockets.on('connection', function(socket){
     socket.emit('updaterooms', rooms, '1');
   });
 
-  socket.on('chat message', function(msg){ 
+  socket.on('chat message', function(msg){
     io.sockets.in(socket.room).emit('chat message', msg, tokenName);
   });
 
@@ -89,7 +89,7 @@ io.sockets.on('connection', function(socket){
 
   socket.on('disconnect', function(){
     if(tokenName) {
-      delete users[tokenName]   
+      delete users[tokenName]
     } else {
     delete users["guest " + userCount];
       var obj = {
