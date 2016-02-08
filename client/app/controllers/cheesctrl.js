@@ -109,12 +109,7 @@ console.log(socket);
 //Client response when user connects to server
   socket.on('user connected', function(users) {
     console.log(users, "inside user connected");
-    $scope.objKeys = Object.keys(users);
-    $scope.$watch(function() {
-      return $scope.objKeys
-    }, function(data) {
-      console.log(data)
-    })
+    $scope.users = users;
     socket.emit('adduser');
   })
 //Posts messages from server to chatbox
