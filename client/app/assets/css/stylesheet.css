@@ -1,10 +1,27 @@
+body {
+background-color: #E0DCD7
+}
+nav {
+    background-color: #E0DCD7
+}
 .panel-body#chatWindow {
+  border-radius: 25px;
   height: 450px;
   overflow: scroll;
   position: relative;
   border: 2px solid grey;
 }
 .panel-body#chatWindow p:nth-child(odd) {
+    background: #eee;
+}
+.panel-body#groupChat {
+  border-radius: 25px;
+  height: 450px;
+  overflow: scroll;
+  position: relative;
+  border: 2px solid grey;
+}
+.panel-body#groupChat p:nth-child(odd) {
     background: #eee;
 }
 /*images on home page*/
@@ -28,9 +45,19 @@
   padding:10px;
   text-align: center;
 }
-form {padding: 3px; position: relative; bottom: 0; width: 100%; }
-form input { border: 2px solid grey; padding: 10px; width: 73%; margin-right: .5%; }
-form button {
+#dashChat form {
+    padding: 3px;
+    position: relative;
+    bottom: 0; width: 100%;
+}
+#dashChat form input {
+    border-radius: 15px;
+    border: 2px solid grey;
+    padding: 10px;
+    width: 73%;
+    margin-right: .5%;
+}
+#dashChat form button {
     width: 25%;
     padding: 10px;
 }
