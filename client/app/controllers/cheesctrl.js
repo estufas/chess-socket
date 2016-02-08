@@ -112,7 +112,7 @@ console.log(socket);
    $scope.groupChat = function(event) {
     socket.emit('chat message', $scope.message);
     $scope.message = '';
-    
+
   };
 //Client response when user connects to server
   socket.on('user connected', function(users) {
@@ -120,11 +120,11 @@ console.log(socket);
     $scope.users = users;
     socket.emit('adduser');
   })
-	  
+
 //Posts messages from server to chatbox
   socket.on('chat message', function(msg, tokenName){
     chatWindow = $('#groupChat')
-    
+
     isScrolledToBottom = chatWindow[0].scrollHeight - chatWindow.outerHeight() <= chatWindow.scrollTop() + 1;
     if (tokenName) {
     	chatWindow.append($('<p>').text(tokenName + ":  " + msg));
@@ -144,6 +144,7 @@ console.log(socket);
 
   socket.on('move', function (msg) {
     $scope.moveHistory.unshift(msg);
+    console.log($scope.moveHistory);
     game.move(msg);
     socket.emit('move');
     // board.position(game.fen()); // fen is the board layout
