@@ -14,7 +14,7 @@ var jwt          = require('jsonwebtoken');
 var secret       = "juicyjforpresident";
 
 //Connect to mongo, then execute server logic
-mongoose.connect( 'mongodb://production:final@ds060968.mongolab.com:60968/final');
+mongoose.connect( 'mongodb://heroku1:heroku@ds060968.mongolab.com:60968/final');
 // mongoose.connect('mongodb://localhost/final_project');
 mongoose.connection.once('open', function(){
 //Middleward etc.
