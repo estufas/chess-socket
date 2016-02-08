@@ -52,6 +52,7 @@ var newUser = false;
 console.log(newUser);
 var guestUsers = [];
 var tokenName;
+console.log(tokenName);
 var userCount;
 var rooms = ['1', '2', '3'];
 var userCount = 0;
@@ -86,46 +87,31 @@ io.sockets.on('connection', function(socket){
     // socket.join('1');
     // socket.emit('chat message', 'SERVER', 'you have connected to room1');
     // // echo to room 1 that a person has connected to their room
-    socket.broadcast.to('1').emit('chat message',  user);
+    // socket.broadcast.to('1').emit('chat message',  user);
     console.log(rooms);
     socket.emit('updaterooms', rooms, '1');
   });
 
-  socket.on('chat message', function(msg){
-    if(tokenName) {
-      var obj = {
-        msg : msg,
-        user : tokenName
-      }
-    } else {
-    var obj = {
-      msg : msg,
-      user : "guest " + userCount
-    }
-  }
-    io.sockets.in(socket.room).emit('chat message', socket.user, obj);
+  socket.on('chat message', function(msg){ 
+    io.sockets.in(socket.room).emit('chat message', msg, tokenName);
   });
 
   socket.on('switchRoom', function(newroom){
     socket.leave(socket.room);
     socket.join(newroom);
     console.log(newroom, "LOOOOOOOOOOOOK");
-    socket.emit('updatechat', 'SERVER', 'you have connected to '+ newroom);
+    // socket.emit('updatechat', 'SERVER', 'you have connected to '+ newroom);
     // sent message to OLD room
-    socket.broadcast.to(socket.room).emit('updatechat', 'SERVER', socket.user +' has left this room');
+    // socket.broadcast.to(socket.room).emit('updatechat', 'SERVER', socket.user +' has left this room');
     // update socket session room title
     socket.room = newroom;
-    socket.broadcast.to(newroom).emit('updatechat', 'SERVER', socket.user +' has joined this room');
+    socket.broadcast.to(newroom);
     socket.emit('updaterooms', rooms, newroom);
   });
 
   socket.on('disconnect', function(){
     if(tokenName) {
-      delete users[tokenName]
-      var obj = {
-        user  : tokenName,
-        users : users
-      }
+      delete users[tokenName]   
     } else {
     delete users["guest " + userCount];
       var obj = {

@@ -113,12 +113,15 @@ console.log(socket);
     socket.emit('adduser');
   })
 //Posts messages from server to chatbox
-  socket.on('chat message', function(user, obj){
+  socket.on('chat message', function(msg, tokenName){
     chatWindow = $('#groupChat')
     
     isScrolledToBottom = chatWindow[0].scrollHeight - chatWindow.outerHeight() <= chatWindow.scrollTop() + 1;
-
-    chatWindow.append($('<p>').text(obj['user'] + ' ' + obj['msg']));
+    if (tokenName) {
+    	chatWindow.append($('<p>').text(tokenName + ":  " + msg));
+    } else {
+    	chatWindow.append($('<p>').text("guest:  " + msg));
+    }
 
     if(isScrolledToBottom) {
       scrollWindow();
@@ -150,6 +153,11 @@ $scope.switchRoom = function(room) {
         $scope.switchRoom('2')
       }
   }, 700)
+
+  var scrollWindow = function() {
+    var chatWindow = $('#groupChat');
+    chatWindow[0].scrollTop = chatWindow[0].scrollHeight - chatWindow.outerHeight();
+  }
 
 }])
 .controller('DashBoardCtrl', ['$scope', 'Auth', function($scope, Auth) {
