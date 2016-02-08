@@ -98,6 +98,13 @@ console.log(socket);
     // console.log("wyatt can you see me?")
 	}
 
+		$scope.isDisabled = false;
+
+    $scope.disableButton = function() {
+        $scope.isDisabled = true;
+    }
+
+
 	$scope.message;
   $scope.rooms = [];
 
@@ -139,6 +146,7 @@ console.log(socket);
     $scope.moveHistory.unshift(msg);
     console.log($scope.moveHistory);
     game.move(msg);
+    socket.emit('move');
     // board.position(game.fen()); // fen is the board layout
 	});
 $scope.switchRoom = function(room) {
