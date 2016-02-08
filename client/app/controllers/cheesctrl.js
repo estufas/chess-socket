@@ -98,6 +98,13 @@ console.log(socket);
     // console.log("wyatt can you see me?")
 	}
 
+		$scope.isDisabled = false;
+
+    $scope.disableButton = function() {
+        $scope.isDisabled = true;
+    }
+
+
 	$scope.message;
   $scope.rooms = [];
 
