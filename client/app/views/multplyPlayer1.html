@@ -13,6 +13,21 @@
 			</li>
 		</ul>
 	</div>
+	<div class='col-md-6'>
+	<div class="panel-body" id="groupChat">
+	</div>
+		<form ng-submit="groupChat()">
+			<input id="teamChat" autocomplete="off" placeholder="White Iversone" ng-model="message"/><button>Send</button>
+		</form>
+		<div>
+			<ul>
+				<li>Users List</li>
+				<li ng-repeat='items in objKeys'>
+					{{items}}
+				</li>
+			</ul>
+		</div>
+	</div>
 </div>
 
 <div class='col-md-6' ng-controller='SocketCtrl'>
@@ -29,7 +44,5 @@
 			</li>
 		</ul>
 	</div>
-	<div id="rooms">
-    <button ng-repeat="room in rooms" ><a href='/multi-player{{room}}'>Room #{{room}}</a></button>
-	</div>
 </div>
+
