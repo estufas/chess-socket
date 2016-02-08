@@ -75,7 +75,7 @@ angular.module('Authctrl', ['ChessServices'])
 
 //separate controllers for login/signup
 .controller('UserCtrl', ['$scope', '$http', '$location', 'Alerts', 'Auth',  function($scope, $http, $location, Alerts, Auth) {
-  $scope.modalShown = false;
+  $scope.modalShown1 = false;
   $scope.user = {
     email: '',
     password: ''
@@ -92,15 +92,8 @@ angular.module('Authctrl', ['ChessServices'])
       console.log(data);
     });
   }
-  $scope.toggleModal = function() {
-    $scope.modalShown = !$scope.modalShown;
-  };
-}])
-.controller('User1Ctrl', ['$scope', '$http', '$location', 'Alerts', 'Auth',  function($scope, $http, $location, Alerts, Auth) {
-  console.log(Auth.isLoggedIn());
-  $scope.user = {
-    email: '',
-    password: ''
+  $scope.toggleModal1 = function() {
+    $scope.modalShown1 = !$scope.modalShown1;
   };
  $scope.userLogin = function() {
     $http.post('/api/auth', $scope.user).then(function success(res) {

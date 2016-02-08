@@ -7,14 +7,23 @@
 .panel-body#chatWindow p:nth-child(odd) {
     background: #eee;
 }
-.img {
-    margin: 0 auto;
-}
-#middleImage {
+#homeImage {
+    opacity: 0.5;
     width: 80%;
     margin: auto;
 }
-#modalHome {
-    outline: 1px solid black;
-    background-color: grey;
+.ng-modal-dialog {
+  position: absolute;
+  width: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+
+  background-color: #fff;
+  box-shadow: 4px 4px 80px #000;
+}
+.ng-modal-dialog-content {
+  padding:10px;
+  text-align: center;
 }
