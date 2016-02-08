@@ -36,7 +36,7 @@ mongoose.connection.once('open', function(){
         if (err || !result) return res.send({message: 'User not authenticated'});
         console.log(user.name + 'LOOOOOOOOOOKKKKK HHHHHHHEEEEEERRRRRREEE');
         // tokenName.push(user.name);
-        users.push(user.name);
+        // users.push(user.name);
         newUser = true;
         var token = jwt.sign(user, secret);
         tokenName = user.name;
@@ -52,7 +52,7 @@ var newUser = false;
 console.log(newUser);
 var guestUsers = [];
 var tokenName;
-console.log(tokenName);
+console.log(tokenName, "line 55");
 var userCount;
 var rooms = ['1', '2', '3'];
 var userCount = 0;
@@ -65,21 +65,14 @@ io.sockets.on('connection', function(socket){
   io.emit('user connected', users);
 
   socket.on('adduser', function (user){
-      if(newUser) {
-        for (var i = 0; i < users.length; i++) {
-          if (users[i] = tokenName) {
-            return
-          } else {
-            users.push(tokenName)
-          }
-        }
-        newUser = false;
-        console/log("inside new users", tokenName);
-      } else {
-      userCount ++;
-        users.push("guest " + userCount);
+        console.log("inside new users", tokenName); 
+        userCount ++;
+        users.push({
+              name: "guest " + userCount,
+              team: "black"
+            });
         console.log(("guest " + userCount), "inside of the else")
-      }
+      
       console.log(users, "LOOOOOOOOOOOOK");
     // console.log("ANYONE HOME AT addUSER")
     // socket.user = Object.keys(users);
