@@ -2,12 +2,6 @@ angular.module('Authctrl', ['ChessServices'])
 .controller('HomeCtrl', ['$scope', function($scope) {
 }])
 .controller('NavCtrl', ['$scope', 'Auth', 'Alerts', function($scope, Auth, Alerts) {
-  $scope.alerts = Alerts.get();
-  $scope.user = Auth.currentUser();
-
-  $scope.closeAlert = function(idx) {
-    Alerts.remove(idx);
-  };
   $scope.logout = function() {
     Auth.removeToken();
   }
@@ -24,7 +18,7 @@ angular.module('Authctrl', ['ChessServices'])
    $scope.sendChat = function(event) {
     socket.emit('chat message', $scope.message);
     $scope.message = '';
-    
+
   };
 //Client response when user connects to server
   socket.on('user connected', function(users) {
@@ -40,7 +34,7 @@ angular.module('Authctrl', ['ChessServices'])
 //Posts messages from server to chatbox
   socket.on('chat message', function(user, obj){
     chatWindow = $('#chatWindow')
-    
+
     isScrolledToBottom = chatWindow[0].scrollHeight - chatWindow.outerHeight() <= chatWindow.scrollTop() + 1;
 
     chatWindow.append($('<p>').text(obj['user'] + ' ' + obj['msg']));
