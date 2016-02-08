@@ -1,23 +1,28 @@
-<div class='col-md-6' ng-controller='ChessMultplyPlayer'>
-    <div id="board1" style="width: 400px"></div>
-    <button ng-click="initGame()">Start Game</button>
-    <button id='flipButton'>Rotate Board</button>
-    <div>
-        <h3>Past 8 Moves</h3>
-        <ul>
-            <li ng-repeat='items in moveHistory | limitTo:8'>
-                Color: {{ items.color }}
-                Piece: {{ items.piece }}
-                From: {{ items.from }}
-                To: {{ items.to }}
-            </li>
-        </ul>
+<div ng-controller='ChessMultplyPlayer'>
+    <div class='container-fluid'>
+        <div class='col-md-4 col-md-offset-3'  id="board1" style="width: 40%">
+            <button ng-click="initGame()">Start Game</button>
+        <button id='flipButton'>Rotate Board</button>
+        </div>
+        <div class='col-md-3'>
+            <h3>Past Moves</h3>
+            <ul>
+                <li ng-repeat='items in moveHistory | limitTo:8'>
+                    Color: {{ items.color }}
+                    Piece: {{ items.piece }}
+                    From: {{ items.from }}
+                    To: {{ items.to }}
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class='col-md-6'>
+
+    <div class='col-md-4 col-md-offset-1'>
     <div class="panel-body" id="groupChat">
+        <h5 class='text-center'>Group Chat</h5>
     </div>
         <form ng-submit="groupChat()">
-            <input id="teamChat" autocomplete="off" placeholder="White Iversone" ng-model="message"/><button>Send</button>
+            <input id="teamChat" autocomplete="off" placeholder="Enter Message" ng-model="message"/><button>Send</button>
         </form>
         <div>
             <ul>
@@ -30,13 +35,12 @@
     </div>
 </div>
 
-<div class='col-md-6' ng-controller='SocketCtrl'>
-    <h2>Pick a Team</h2>
-    <button ng-click='setTeam("w")'>Offense</button>
-    <button ng-click='setTeam("b")'>Defense</button>
-    <div class="panel-body" id="chatWindow"></div>
+<div class='col-md-4 col-md-offset-2' ng-controller='SocketCtrl'>
+    <div class="panel-body" id="chatWindow">
+                <h5 class='text-center'>Team Chat</h5>
+    </div>
         <form ng-submit="sendChat()">
-            <input id="m" autocomplete="off" placeholder="White Iversone" ng-model="message" /><button>Send</button>
+            <input id="m" autocomplete="off" placeholder="Enter Message" ng-model="message" /><button>Send</button>
         </form>
         <div>
             <ul>
@@ -46,4 +50,7 @@
                 </li>
             </ul>
         </div>
+    <h2>Pick a Team</h2>
+    <button ng-click='setTeam("w")'>Offense</button>
+    <button ng-click='setTeam("b")'>Defense</button>
 </div>
