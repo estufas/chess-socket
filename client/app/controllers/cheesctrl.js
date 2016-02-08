@@ -145,6 +145,7 @@ console.log(socket);
   socket.on('move', function (msg) {
     $scope.moveHistory.unshift(msg);
     game.move(msg);
+    socket.emit('move');
     // board.position(game.fen()); // fen is the board layout
 	});
 $scope.switchRoom = function(room) {

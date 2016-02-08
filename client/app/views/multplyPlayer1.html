@@ -31,7 +31,6 @@
 </div>
 
 <div class='col-md-6' ng-controller='SocketCtrl'>
-<<<<<<< HEAD
 	<h2>Pick a Team</h2>
 	<div>
 		<button ng-click='setTeam("w")'>Offense</button>
@@ -48,22 +47,5 @@
 					{{items}}
 				</li>
 			</ul>
-		</div>
-=======
-    <h2>Pick a Team</h2>
-    <button ng-click='setTeam("w")'>Offense</button>
-    <button ng-click='setTeam("b")'>Defense</button>
-    <div class="panel-body" id="chatWindow"></div>
-        <form ng-submit="sendChat()">
-            <input id="m" autocomplete="off" placeholder="White Iversone" ng-model="message" /><button>Send</button>
-        </form>
-        <div>
-            <ul>
-                <li>Users List</li>
-                <li ng-repeat='items in objKeys'>
-                    {{items}}
-                </li>
-            </ul>
-        </div>
->>>>>>> 81fbea0d8c476387198eb03f14bf77d4cda39235
+		</div>    
 </div>
