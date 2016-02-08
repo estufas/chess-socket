@@ -65,22 +65,6 @@ io.sockets.on('connection', function(socket){
   io.emit('user connected', users);
 
   socket.on('adduser', function (user){
-        console.log("inside new users", tokenName); 
-        userCount ++;
-        users.push({
-              name: "guest " + userCount,
-              team: "black"
-            });
-        console.log(("guest " + userCount), "inside of the else")
-      
-      console.log(users, "LOOOOOOOOOOOOK");
-    // console.log("ANYONE HOME AT addUSER")
-    // socket.user = Object.keys(users);
-    // socket.room = '1';
-    // socket.join('1');
-    // socket.emit('chat message', 'SERVER', 'you have connected to room1');
-    // // echo to room 1 that a person has connected to their room
-    // socket.broadcast.to('1').emit('chat message',  user);
     console.log(rooms);
     socket.emit('updaterooms', rooms, '1');
   });
@@ -92,14 +76,15 @@ io.sockets.on('connection', function(socket){
   socket.on('switchRoom', function(newroom){
     socket.leave(socket.room);
     socket.join(newroom);
-    console.log(newroom, "LOOOOOOOOOOOOK");
-    // socket.emit('updatechat', 'SERVER', 'you have connected to '+ newroom);
-    // sent message to OLD room
-    // socket.broadcast.to(socket.room).emit('updatechat', 'SERVER', socket.user +' has left this room');
-    // update socket session room title
     socket.room = newroom;
     socket.broadcast.to(newroom);
-    socket.emit('updaterooms', rooms, newroom);
+  });
+
+  socket.on('set room', function(newroom){
+    socket.leave(socket.room);
+    socket.join(newroom);
+    socket.room = newroom;
+    socket.broadcast.to(newroom);
   });
 
   socket.on('disconnect', function(){

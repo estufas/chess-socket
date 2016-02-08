@@ -1,14 +1,15 @@
 angular.module('ChessCtrls', [])
 .controller('ChessMultplyPlayer', ['$scope', '$timeout', '$location',  function($scope, $timeout, $location) {
-    $scope.moveHistory = [];
-    var rotated = false;
-    var moveColor;
+  $scope.moveHistory = [];
+  var rotated = false;
+  var moveColor;
+  var board;
 
-    var board;
-    $scope.initGame = function() {
-	  statusEl = $('#status'),
-	  fenEl = $('#fen'),
-	  pgnEl = $('#pgn');
+
+  $scope.initGame = function() {
+  statusEl = $('#status'),
+  fenEl = $('#fen'),
+  pgnEl = $('#pgn');
 
 
 	// do not pick up pieces if the game is over
@@ -112,6 +113,7 @@ console.log(socket);
     $scope.users = users;
     socket.emit('adduser');
   })
+	  
 //Posts messages from server to chatbox
   socket.on('chat message', function(msg, tokenName){
     chatWindow = $('#groupChat')
@@ -128,10 +130,10 @@ console.log(socket);
     }
   })
 
-  socket.on('updaterooms', function(rooms, current_room) {
-    $scope.rooms = rooms;
-    console.log(rooms, current_room);
-  })
+  // socket.on('updaterooms', function(rooms, current_room) {
+  //   $scope.rooms = rooms;
+  //   console.log(rooms, current_room);
+  // })
 
   socket.on('move', function (msg) {
     $scope.moveHistory.unshift(msg);
@@ -147,16 +149,17 @@ $scope.switchRoom = function(room) {
     console.log('user left')
     $scope.objKeys = Object.keys(users);
   })
-  $timeout(function(){
-      if($location.path() === '/multi-player1') {
-        $scope.switchRoom('2')
-      }
-  }, 700)
 
   var scrollWindow = function() {
     var chatWindow = $('#groupChat');
     chatWindow[0].scrollTop = chatWindow[0].scrollHeight - chatWindow.outerHeight();
   }
+
+  $timeout(function(){
+      if($location.path() === '/multi-player1') {
+        $scope.switchRoom('1')
+      }
+  }, 700)
 
 }])
 .controller('DashBoardCtrl', ['$scope', 'Auth', function($scope, Auth) {

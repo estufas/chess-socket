@@ -42,25 +42,30 @@ angular.module('Authctrl', ['ChessServices'])
     }
   })
 
-  socket.on('updaterooms', function(rooms, current_room) {
-    $scope.rooms = rooms;
-    console.log(rooms, current_room);
-  })
+  $scope.setTeam = function(team) {
+      socket.emit('set room', team)
+      console.log(team);
+    };
 
-  $scope.switchRoom = function(room) {
-    socket.emit('switchRoom', room);
-    console.log('Hola', room);
-  }
+  // socket.on('updaterooms', function(rooms, current_room) {
+  //   $scope.rooms = rooms;
+  //   console.log(rooms, current_room);
+  // })
+
+  // $scope.switchRoom = function(room) {
+  //   socket.emit('switchRoom', room);
+  //   console.log('Hola', room);
+  // }
 //What happens when user leaves room
   socket.on('user leave', function(users) {
     console.log('user left')
     $scope.objKeys = Object.keys(users);
   })
-  $timeout(function(){
-      if($location.path() === '/multi-player1') {
-        $scope.switchRoom('1')
-      }
-  }, 700)
+  // $timeout(function(){
+  //     if($location.path() === '/multi-player1') {
+  //       $scope.switchRoom('1')
+  //     }
+  // }, 700)
 
   var scrollWindow = function() {
     var chatWindow = $('#chatWindow');
