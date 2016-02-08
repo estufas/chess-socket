@@ -95,7 +95,45 @@ console.log(socket);
     var move = game.move({from: source, to: target});
     socket.emit('move', move);
     // console.log("wyatt can you see me?")
-}
+	}
+
+	$scope.message;
+  $scope.rooms = [];
+
+//Sends chat message to io server
+   $scope.groupChat = function(event) {
+    socket.emit('chat message', $scope.message);
+    $scope.message = '';
+    
+  };
+//Client response when user connects to server
+  socket.on('user connected', function(users) {
+    console.log(users, "inside user connected");
+    $scope.objKeys = Object.keys(users);
+    $scope.$watch(function() {
+      return $scope.objKeys
+    }, function(data) {
+      console.log(data)
+    })
+    socket.emit('adduser');
+  })
+//Posts messages from server to chatbox
+  socket.on('chat message', function(user, obj){
+    chatWindow = $('#groupChat')
+    
+    isScrolledToBottom = chatWindow[0].scrollHeight - chatWindow.outerHeight() <= chatWindow.scrollTop() + 1;
+
+    chatWindow.append($('<p>').text(obj['user'] + ' ' + obj['msg']));
+
+    if(isScrolledToBottom) {
+      scrollWindow();
+    }
+  })
+
+  socket.on('updaterooms', function(rooms, current_room) {
+    $scope.rooms = rooms;
+    console.log(rooms, current_room);
+  })
 
   socket.on('move', function (msg) {
     $scope.moveHistory.unshift(msg);
@@ -113,12 +151,7 @@ $scope.switchRoom = function(room) {
   })
   $timeout(function(){
       if($location.path() === '/multi-player1') {
-        $scope.switchRoom('1')
-      }  else if($location.path() === '/multi-player2') {
         $scope.switchRoom('2')
-      }  else if($location.path() === '/multi-player3') {
-        console.log('TEST TETSEgsggs')
-        $scope.switchRoom('3')
       }
   }, 700)
 

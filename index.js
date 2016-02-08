@@ -36,6 +36,7 @@ var users = {};
 var userCount;
 var rooms = ['1', '2', '3'];
 var userCount = 0;
+var team = "team";
 
 //Starts server, and logs to terminal when connection is made
 io.sockets.on('connection', function(socket){
@@ -46,11 +47,14 @@ io.sockets.on('connection', function(socket){
       if(newUser) {
         users[tokenName] = socket.id;
         newUser = false;
+        console/log("inside new users");
       } else {
       userCount ++;
-        users["guest " + userCount] = socket.id
+        users["guest " + userCount] = socket.id;
+        users[team] = "w";
+        console.log("inside guest creator")
       }
-      console.log(users);
+      console.log(users, "LOOOOOOOOOOOOK");
     // console.log("ANYONE HOME AT addUSER")
     // socket.user = Object.keys(users);
     // socket.room = '1';

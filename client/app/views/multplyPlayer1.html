@@ -1,5 +1,7 @@
 <div class='col-md-6' ng-controller='ChessMultplyPlayer'>
 	<div id="board1" style="width: 400px"></div>
+	<button ng-click='initGame()'>Start Game</button>
+	<button id='flipButton'>Rotate Board</button>
 	<div>
 		<h3>Past 8 Moves</h3>
 		<ul>
@@ -10,15 +12,12 @@
 				To: {{ items.to }}
 			</li>
 		</ul>
-		<button ng-click='initGame()'>Start Game</button>
-		<button id='flipButton'>Rotate Board</button>
 	</div>
-</div>
-<div class='col-md-6' ng-controller='SocketCtrl'>
-	<div class="panel-body" id="chatWindow">
-	      </div>
-		<form ng-submit="sendChat()">
-			<input id="m" autocomplete="off" placeholder="White Iversone" ng-model="message" /><button>Send</button>
+	<div class='col-md-6'>
+	<div class="panel-body" id="groupChat">
+	</div>
+		<form ng-submit="groupChat()">
+			<input id="teamChat" autocomplete="off" placeholder="White Iversone" ng-model="message"/><button>Send</button>
 		</form>
 		<div>
 			<ul>
@@ -28,7 +27,21 @@
 				</li>
 			</ul>
 		</div>
-		<div id="rooms">
-	    <button ng-repeat="room in rooms" ><a href='/multi-player{{room}}'>Room #{{room}}</a></button>
+	</div>
+</div>
+
+<div class='col-md-6' ng-controller='SocketCtrl'>
+<div class="panel-body" id="chatWindow">
+      </div>
+	<form ng-submit="sendChat()">
+		<input id="m" autocomplete="off" placeholder="White Iversone" ng-model="message" /><button>Send</button>
+	</form>
+	<div>
+		<ul>
+			<li>Users List</li>
+			<li ng-repeat='items in objKeys'>
+				{{items}}
+			</li>
+		</ul>
 	</div>
 </div>

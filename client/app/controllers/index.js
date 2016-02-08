@@ -61,11 +61,6 @@ angular.module('Authctrl', ['ChessServices'])
   $timeout(function(){
       if($location.path() === '/multi-player1') {
         $scope.switchRoom('1')
-      }  else if($location.path() === '/multi-player2') {
-        $scope.switchRoom('2')
-      }  else if($location.path() === '/multi-player3') {
-        console.log('TEST TETSEgsggs')
-        $scope.switchRoom('3')
       }
   }, 700)
 
