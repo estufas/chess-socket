@@ -3,7 +3,7 @@
     <button ng-click="initGame()">Start Game</button>
     <button id='flipButton'>Rotate Board</button>
     <div>
-        <h3>Past 8 Moves</h3>
+        <h3>Past Moves</h3>
         <ul>
             <li ng-repeat='items in moveHistory | limitTo:8'>
                 Color: {{ items.color }}
@@ -19,31 +19,31 @@
         <form ng-submit="groupChat()">
             <input id="teamChat" autocomplete="off" placeholder="White Iversone" ng-model="message"/><button>Send</button>
         </form>
-        <div>
+<!--         <div>
             <ul>
                 <li>Users List</li>
                 <li ng-repeat='items in objKeys'>
                     {{items}}
                 </li>
             </ul>
-        </div>
+        </div> -->
     </div>
 </div>
 
 <div class='col-md-6' ng-controller='SocketCtrl'>
-    <h2>Pick a Team</h2>
-    <button ng-click='setTeam("w")'>Offense</button>
-    <button ng-click='setTeam("b")'>Defense</button>
     <div class="panel-body" id="chatWindow"></div>
         <form ng-submit="sendChat()">
             <input id="m" autocomplete="off" placeholder="White Iversone" ng-model="message" /><button>Send</button>
         </form>
-        <div>
+<!--         <div>
             <ul>
                 <li>Users List</li>
                 <li ng-repeat='items in objKeys'>
                     {{items}}
                 </li>
             </ul>
-        </div>
+        </div> -->
+    <h2>Pick a Team</h2>
+    <button ng-click='setTeam("w")'>Offense</button>
+    <button ng-click='setTeam("b")'>Defense</button>
 </div>
