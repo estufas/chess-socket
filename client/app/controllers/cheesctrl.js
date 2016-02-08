@@ -1,14 +1,15 @@
 angular.module('ChessCtrls', [])
 .controller('ChessMultplyPlayer', ['$scope', '$timeout', '$location',  function($scope, $timeout, $location) {
-    $scope.moveHistory = [];
-    var rotated = false;
-    var moveColor;
+  $scope.moveHistory = [];
+  var rotated = false;
+  var moveColor;
+  var board;
 
-    var board;
-    $scope.initGame = function() {
-	  statusEl = $('#status'),
-	  fenEl = $('#fen'),
-	  pgnEl = $('#pgn');
+
+  $scope.initGame = function() {
+  statusEl = $('#status'),
+  fenEl = $('#fen'),
+  pgnEl = $('#pgn');
 
 
 	// do not pick up pieces if the game is over
@@ -109,31 +110,30 @@ console.log(socket);
 //Client response when user connects to server
   socket.on('user connected', function(users) {
     console.log(users, "inside user connected");
-    $scope.objKeys = Object.keys(users);
-    $scope.$watch(function() {
-      return $scope.objKeys
-    }, function(data) {
-      console.log(data)
-    })
+    $scope.users = users;
     socket.emit('adduser');
   })
+	  
 //Posts messages from server to chatbox
-  socket.on('chat message', function(user, obj){
+  socket.on('chat message', function(msg, tokenName){
     chatWindow = $('#groupChat')
     
     isScrolledToBottom = chatWindow[0].scrollHeight - chatWindow.outerHeight() <= chatWindow.scrollTop() + 1;
-
-    chatWindow.append($('<p>').text(obj['user'] + ' ' + obj['msg']));
+    if (tokenName) {
+    	chatWindow.append($('<p>').text(tokenName + ":  " + msg));
+    } else {
+    	chatWindow.append($('<p>').text("guest:  " + msg));
+    }
 
     if(isScrolledToBottom) {
       scrollWindow();
     }
   })
 
-  socket.on('updaterooms', function(rooms, current_room) {
-    $scope.rooms = rooms;
-    console.log(rooms, current_room);
-  })
+  // socket.on('updaterooms', function(rooms, current_room) {
+  //   $scope.rooms = rooms;
+  //   console.log(rooms, current_room);
+  // })
 
   socket.on('move', function (msg) {
     $scope.moveHistory.unshift(msg);
@@ -149,9 +149,15 @@ $scope.switchRoom = function(room) {
     console.log('user left')
     $scope.objKeys = Object.keys(users);
   })
+
+  var scrollWindow = function() {
+    var chatWindow = $('#groupChat');
+    chatWindow[0].scrollTop = chatWindow[0].scrollHeight - chatWindow.outerHeight();
+  }
+
   $timeout(function(){
       if($location.path() === '/multi-player1') {
-        $scope.switchRoom('2')
+        $scope.switchRoom('1')
       }
   }, 700)
 

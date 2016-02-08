@@ -23,46 +23,49 @@ angular.module('Authctrl', ['ChessServices'])
 //Client response when user connects to server
   socket.on('user connected', function(users) {
     console.log(users);
-    $scope.objKeys = Object.keys(users);
-    $scope.$watch(function() {
-      return $scope.objKeys
-    }, function(data) {
-      console.log(data)
-    })
+    $scope.users = users;
     socket.emit('adduser');
   })
 //Posts messages from server to chatbox
-  socket.on('chat message', function(user, obj){
+  socket.on('chat message', function(msg, tokenName){
     chatWindow = $('#chatWindow')
-
-    isScrolledToBottom = chatWindow[0].scrollHeight - chatWindow.outerHeight() <= chatWindow.scrollTop() + 1;
-
-    chatWindow.append($('<p>').text(obj['user'] + ' ' + obj['msg']));
+    
+    isScrolledToBottom = chatWindow[0].scrollHeight - chatWindow.outerHeight() <= chatWindow.scrollTop() + 1;      
+    if (tokenName) {
+      chatWindow.append($('<p>').text(tokenName + ":  " + msg));
+    } else {
+      chatWindow.append($('<p>').text("guest:  " + msg));
+    }
 
     if(isScrolledToBottom) {
       scrollWindow();
     }
   })
 
-  socket.on('updaterooms', function(rooms, current_room) {
-    $scope.rooms = rooms;
-    console.log(rooms, current_room);
-  })
+  $scope.setTeam = function(team) {
+      socket.emit('set room', team)
+      console.log(team);
+    };
 
-  $scope.switchRoom = function(room) {
-    socket.emit('switchRoom', room);
-    console.log('Hola', room);
-  }
+  // socket.on('updaterooms', function(rooms, current_room) {
+  //   $scope.rooms = rooms;
+  //   console.log(rooms, current_room);
+  // })
+
+  // $scope.switchRoom = function(room) {
+  //   socket.emit('switchRoom', room);
+  //   console.log('Hola', room);
+  // }
 //What happens when user leaves room
   socket.on('user leave', function(users) {
     console.log('user left')
     $scope.objKeys = Object.keys(users);
   })
-  $timeout(function(){
-      if($location.path() === '/multi-player1') {
-        $scope.switchRoom('1')
-      }
-  }, 700)
+  // $timeout(function(){
+  //     if($location.path() === '/multi-player1') {
+  //       $scope.switchRoom('1')
+  //     }
+  // }, 700)
 
   var scrollWindow = function() {
     var chatWindow = $('#chatWindow');

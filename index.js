@@ -29,14 +29,35 @@ mongoose.connection.once('open', function(){
       res.status(401).send({message: 'You need an authorization token to view this information.'})
     }
 });
+  app.post('/api/auth', function(req, res) {
+    User.findOne({email: req.body.email}, function(err, user) {
+      if (err || !user) return res.send({message: 'User not found'});
+      user.authenticated(req.body.password, function(err, result) {
+        if (err || !result) return res.send({message: 'User not authenticated'});
+        console.log(user.name + 'LOOOOOOOOOOKKKKK HHHHHHHEEEEEERRRRRREEE');
+        // tokenName.push(user.name);
+        // users.push(user.name);
+        newUser = true;
+        var token = jwt.sign(user, secret);
+        tokenName = user.name;
+        res.send({user: user, token: token});
+      });
+    });
+  });
 //CHAT SOCKET STUFF
-var tokenName = [];
+// var tokenName = [];
+// var newUser = false;
+var users = [];
 var newUser = false;
-var users = {};
+console.log(newUser);
+var guestUsers = [];
+var tokenName;
+console.log(tokenName, "line 55");
 var userCount;
 var rooms = ['1', '2', '3'];
 var userCount = 0;
-var team = "team";
+var blackTeam = [];
+var whiteTeam = [];
 
 //Starts server, and logs to terminal when connection is made
 io.sockets.on('connection', function(socket){
@@ -44,63 +65,31 @@ io.sockets.on('connection', function(socket){
   io.emit('user connected', users);
 
   socket.on('adduser', function (user){
-      if(newUser) {
-        users[tokenName] = socket.id;
-        newUser = false;
-        console/log("inside new users");
-      } else {
-      userCount ++;
-        users["guest " + userCount] = socket.id;
-        users[team] = "w";
-        console.log("inside guest creator")
-      }
-      console.log(users, "LOOOOOOOOOOOOK");
-    // console.log("ANYONE HOME AT addUSER")
-    // socket.user = Object.keys(users);
-    // socket.room = '1';
-    // socket.join('1');
-    // socket.emit('chat message', 'SERVER', 'you have connected to room1');
-    // // echo to room 1 that a person has connected to their room
-    socket.broadcast.to('1').emit('chat message',  user);
     console.log(rooms);
     socket.emit('updaterooms', rooms, '1');
   });
 
-  socket.on('chat message', function(msg){
-    if(tokenName) {
-      var obj = {
-        msg : msg,
-        user : tokenName
-      }
-    } else {
-    var obj = {
-      msg : msg,
-      user : "guest " + userCount
-    }
-  }
-    io.sockets.in(socket.room).emit('chat message', socket.user, obj);
+  socket.on('chat message', function(msg){ 
+    io.sockets.in(socket.room).emit('chat message', msg, tokenName);
   });
 
   socket.on('switchRoom', function(newroom){
     socket.leave(socket.room);
     socket.join(newroom);
-    console.log(newroom, "LOOOOOOOOOOOOK");
-    socket.emit('updatechat', 'SERVER', 'you have connected to '+ newroom);
-    // sent message to OLD room
-    socket.broadcast.to(socket.room).emit('updatechat', 'SERVER', socket.user +' has left this room');
-    // update socket session room title
     socket.room = newroom;
-    socket.broadcast.to(newroom).emit('updatechat', 'SERVER', socket.user +' has joined this room');
-    socket.emit('updaterooms', rooms, newroom);
+    socket.broadcast.to(newroom);
+  });
+
+  socket.on('set room', function(newroom){
+    socket.leave(socket.room);
+    socket.join(newroom);
+    socket.room = newroom;
+    socket.broadcast.to(newroom);
   });
 
   socket.on('disconnect', function(){
     if(tokenName) {
-      delete users[tokenName]
-      var obj = {
-        user  : tokenName,
-        users : users
-      }
+      delete users[tokenName]   
     } else {
     delete users["guest " + userCount];
       var obj = {
@@ -122,20 +111,6 @@ io.sockets.on('connection', function(socket){
 });
 
 //Auth post routes
-app.post('/api/auth', function(req, res) {
-  User.findOne({email: req.body.email}, function(err, user) {
-    if (err || !user) return res.send({message: 'User not found'});
-    user.authenticated(req.body.password, function(err, result) {
-      if (err || !result) return res.send({message: 'User not authenticated'});
-      console.log(user.name + 'LOOOOOOOOOOKKKKK HHHHHHHEEEEEERRRRRREEE');
-      tokenName.push(user.name);
-      newUser = true;
-      var token = jwt.sign(user, secret);
-      tokenName = user.name;
-      res.send({user: user, token: token});
-    });
-  });
-});
 //Import routes from server file
   var routes = require('./server/routes');
   _.each(routes, function(controller, route) {
