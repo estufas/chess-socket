@@ -116,5 +116,5 @@ io.sockets.on('connection', function(socket){
   _.each(routes, function(controller, route) {
     app.use(route, controller);
   });
-  http.listen(process.env.PORT || 3000);
 })
+  app.listen(process.env.PORT || 3000);
