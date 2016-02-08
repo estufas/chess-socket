@@ -112,9 +112,9 @@ io.sockets.on('connection', function(socket){
 
 //Auth post routes
 //Import routes from server file
-    var routes = require('./server/routes');
+  var routes = require('./server/routes');
   _.each(routes, function(controller, route) {
     app.use(route, controller);
-  app.listen(process.env.PORT || 3000);
   });
+  http.listen(process.env.PORT || 3000);
 })

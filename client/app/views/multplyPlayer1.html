@@ -32,10 +32,8 @@
 
 <div class='col-md-6' ng-controller='SocketCtrl'>
     <h2>Pick a Team</h2>
-    <div>
-        <button ng-click='setTeam("w")'>Offense</button>
-        <button ng-click='setTeam("b")'>Defense</button>
-    </div>
+    <button ng-click='setTeam("w")'>Offense</button>
+    <button ng-click='setTeam("b")'>Defense</button>
     <div class="panel-body" id="chatWindow"></div>
         <form ng-submit="sendChat()">
             <input id="m" autocomplete="off" placeholder="White Iversone" ng-model="message" /><button>Send</button>

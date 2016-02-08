@@ -4,6 +4,6 @@ var app 		 = require('express');
 module.exports = {
 
   '/' : function(req, res){
-	res.sendFile('client/index.html', { root: __dirname});
+	res.sendFile(path.join(__dirname, '../client/index.html'));
   }
 };
