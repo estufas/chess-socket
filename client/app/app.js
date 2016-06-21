@@ -9,11 +9,6 @@ app.directive('modalDialog', function() {
   replace: true, // Replace with the template below
   transclude: true, // we want to insert custom content inside the directive
   link: function($scope, element, attrs) {
-    // $scope.dialogStyle = {};
-    // if (attrs.width)
-    //   $scope.dialogStyle.width = attrs.width;
-    // if (attrs.height)
-    //   $scope.dialogStyle.height = attrs.height;
     $scope.hideModal = function() {
       $scope.show = false;
     };
@@ -24,38 +19,40 @@ app.directive('modalDialog', function() {
 
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 	$routeProvider
-		.when('/', {
-		    templateUrl: 'app/views/index.html'
-    		})
-		.when(
-			'/dash-board', {
-				templateUrl: 'app/views/dashBoard.html'
-		})
-        	.when(
-                    '/multi-player1', {
-                        templateUrl: 'app/views/multplyPlayer1.html'
-              })
-              .when(
-                    '/multi-player2', {
-                      templateUrl: 'app/views/multplyPlayer2.html'
-              })
-              .when(
-              	'/multi-player3', {
-              	   templateUrl: 'app/views/multplyPlayer3.html'
-        	})
-		.otherwise ({
-			templateUrl: 'app/views/404.html'
-		});
+		.when('/', 
+        {
+  		    templateUrl: 'app/views/index.html'
+      	}
+      ).when('/dash-board', 
+        {
+  				templateUrl: 'app/views/dashBoard.html'
+  		  }
+      ).when('/multi-player1', 
+        {
+          templateUrl: 'app/views/multplyPlayer1.html'
+        }
+      ).when('/multi-player2', 
+        {
+          templateUrl: 'app/views/multplyPlayer2.html'
+        }
+      ).when('/multi-player3', 
+        {
+          templateUrl: 'app/views/multplyPlayer3.html'
+        }
+      ).otherwise (
+        {
+			     templateUrl: 'app/views/404.html'
+		    });
 
   		$locationProvider.html5Mode({
   			  enabled: true,
   			  requireBase: false
   		});
-		}])
-		.config(['$httpProvider', function($httpProvider) {
-		  $httpProvider.interceptors.push('AuthInterceptor');
-		}]).run(['$rootScope', 'Auth', function($rootScope, Auth) {
-		  $rootScope.isLoggedIn = function(){
-		    return Auth.isLoggedIn.apply(Auth);
-		  }
+}])
+	.config(['$httpProvider', function($httpProvider) {
+		$httpProvider.interceptors.push('AuthInterceptor');
+	}]).run(['$rootScope', 'Auth', function($rootScope, Auth) {
+		$rootScope.isLoggedIn = function(){
+		  return Auth.isLoggedIn.apply(Auth);
+		}
 }]);

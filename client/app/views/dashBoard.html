@@ -1,19 +1,19 @@
 
 
 <div class='container-fluid'>
-    <div class='col-md-5 col-md-offset-1' ng-controller='DashBoardCtrl'>
-    	<div id="board" style="width: 400px"></div>
-    </div>
+  <div class='col-md-5 col-md-offset-1' ng-controller='DashBoardCtrl'>
+  	<div id="board" style="width: 400px"></div>
+  </div>
 
-    <div class='col-md-5' ng-controller='SocketCtrl' id='dashChat'>
-        <div id='chatWindow' class='panel-body' style="height: 350px;width: 400px">
-            <h5 class='text-center'>Group Chat</h5>
-            <ul id="messagesid">
-            </ul>
-        </div>
-            <form ng-submit="sendChat()">
-                <input id="m" autocomplete="off" ng-model="message"/>
-                <button class='btn'>Send</button>
-            </form>
+  <div class='col-md-5' ng-controller='SocketCtrl' id='dashChat'>
+    <div id='chatWindow' class='panel-body' style="height: 350px;width: 400px">
+      <h5 class='text-center'>Group Chat</h5>
+      <ul id="messagesid">
+      </ul>
     </div>
+      <form ng-submit="sendChat()">
+        <input id="m" autocomplete="off" ng-model="message"/>
+        <button class='btn'>Send</button>
+      </form>
+  </div>
 </div>
