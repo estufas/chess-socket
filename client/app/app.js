@@ -47,10 +47,10 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 			templateUrl: 'app/views/404.html'
 		});
 
-		$locationProvider.html5Mode({
-			  enabled: true,
-			  requireBase: false
-			});
+  		$locationProvider.html5Mode({
+  			  enabled: true,
+  			  requireBase: false
+  		});
 		}])
 		.config(['$httpProvider', function($httpProvider) {
 		  $httpProvider.interceptors.push('AuthInterceptor');
